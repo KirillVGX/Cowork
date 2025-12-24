@@ -1,0 +1,102 @@
+.reviewsSection {
+    margin-block: 72px;
+    padding: 72px 32px;
+    background-color: var(--color-dark);
+    color: var(--color-light);
+    border-radius: var(--border-radius-large);
+    display: flex;
+    flex-direction: column;
+    gap: 44px;
+}
+
+.reviewsHeader {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: end;
+}
+
+.head {
+    display: flex;
+    flex-direction: row;
+    align-items: start;
+}
+
+.title {
+    max-width: 680px;
+}
+
+.subtitle {
+    position: relative;
+}
+
+.subtitle::after {
+    content: '';
+    position: absolute;
+    height: 1px;
+    width: 200px;
+    background-color: hsla(0, 0%, 85%, 1);
+    top: -12px;
+    left: 0;
+}
+
+.reviews {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 83px 63px;
+    justify-content: center;
+}
+
+.card {
+    max-width: 360px;
+    height: min-content;
+    padding: 32px;
+    color: var(--color-light);
+    border-radius: 24px;
+}
+
+.name,
+.role {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 150%;
+    letter-spacing: 0%;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.role {
+    font-weight: 400;
+    text-transform: none;
+}
+
+.card-0 h6,
+.card-2 h6,
+.card-4 h6 {
+    color: var(--color-light);
+}
+
+.card-1,
+.card-3,
+.card-1 h6,
+.card-3 h6 {
+    color: var(--color-dark);
+}
+
+.card-0 {
+    transform: translateY(25px);
+}
+
+.card-2 {
+    transform: translateY(20px);
+}
+
+.card-3 {
+    transform: translateY(-40px);
+}
+
+.card-4 {
+    transform: translateY(-15px);
+}

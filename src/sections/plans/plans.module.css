@@ -1,0 +1,136 @@
+.plansSection {
+    display: flex;
+    flex-direction: column;
+    margin-block: 72px;
+    border-radius: var(--border-radius-large);
+    background-color: var(--color-dark);
+    color: var(--color-light);
+    padding: 72px 32px 48px 32px;
+    gap: 64px;
+}
+
+.pricing {
+    display: flex;
+    flex-direction: row;
+    gap: 36px;
+    justify-content: space-between;
+    align-items: end;
+}
+
+.title {
+    color: var(--color-light);
+    max-width: 410px;
+    width: fit-content;
+}
+
+.beforeEl {
+    position: relative;
+}
+
+.beforeEl::before {
+    content: '';
+    position: absolute;
+    right: -21%;
+    bottom: 32px;
+    width: 64px;
+    height: 64px;
+
+    background-image: url('/proce-tag.svg');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+}
+
+.plans {
+    display: flex;
+    flex-direction: row;
+    align-items: end;
+    justify-content: center;
+    gap: 16px;
+}
+
+.plan {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--color-yellow);
+    color: var(--color-dark);
+    border-radius: 24px;
+    padding: 32px;
+    flex: 1;
+}
+
+.plans > :nth-child(2) {
+    background-color: var(--color-light);
+}
+
+.title {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+    padding-bottom: 12px;
+}
+
+.name {
+    color: var(--color-dark);
+}
+
+.popular {
+    padding-inline: 12px;
+    background-color: hsla(0, 100%, 60%, 1);
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 150%;
+    text-transform: uppercase;
+    border-radius: 100px;
+}
+
+.priceContainer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: end;
+    max-width: 375px;
+    column-gap: 20px;
+}
+
+.num {
+    position: relative;
+}
+
+.num::before {
+    position: absolute;
+    content: '/';
+    right: -17px;
+    bottom: -20px;
+    font-size: 60px;
+}
+
+.month {
+    text-transform: none;
+}
+
+.feature {
+    list-style: none;
+    margin-bottom: 12px;
+}
+
+.bonusTitle {
+    color: var(--color-dark);
+    margin-top: 24px;
+    margin-bottom: 12px;
+}
+
+.bonuses {
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+    margin-bottom: 32px;
+}
+
+.bonuses li {
+    border-radius: 100px;
+    border: 1px solid var(--color-dark);
+    padding-inline: 12px;
+}

@@ -1,0 +1,14 @@
+.logotypes {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    padding-block: 32px;
+}
+
+.logosContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 48px;
+}

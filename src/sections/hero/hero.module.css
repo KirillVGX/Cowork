@@ -1,0 +1,69 @@
+.heroSection {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+    padding-block: 48px;
+    color: var(--color-light);
+}
+
+.infoBlock {
+    flex: 1;
+    max-width: 960px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    padding: 72px 32px;
+    padding-bottom: 52px;
+    background-color: var(--color-dark);
+    border-radius: var(--border-radius-large);
+}
+
+.title {
+    z-index: 1;
+}
+
+.coworkWrapper {
+    position: relative;
+    display: inline-block;
+    z-index: 1;
+}
+
+.coworkWrapper::after {
+    content: '';
+    position: absolute;
+    left: 48%;
+    bottom: -10px;
+    transform: translateX(-50%);
+    width: 120%;
+    height: 132px;
+
+    background-image: url('/circle.svg');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+
+    z-index: -1;
+    pointer-events: none;
+}
+
+.claim {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.rocket {
+    max-width: 360px;
+    position: relative;
+}
+
+.rocket::after {
+    content: '';
+    position: absolute;
+    height: 1px;
+    width: 200px;
+    background-color: hsla(0, 0%, 85%, 1);
+    top: -12px;
+    left: 0;
+}

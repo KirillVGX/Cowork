@@ -1,0 +1,39 @@
+.button {
+    border-radius: 100px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    font-family: var(--font-heading);
+    line-height: 150%;
+    color: white;
+}
+
+/* colors */
+.null {
+    background: transparent;
+    color: black;
+    border: 1px solid black;
+    background-color: var(--color-light);
+}
+
+.blue {
+    background: var(--color-blue);
+}
+
+.red {
+    background: hsla(0, 100%, 60%, 1);
+}
+
+/* sizes */
+.small {
+    padding: 12px 24px;
+    font-weight: 500;
+    font-size: 16px;
+}
+
+.large {
+    padding: 20px 40px;
+    font-weight: 700;
+    font-size: 20px;
+    letter-spacing: 0%;
+}

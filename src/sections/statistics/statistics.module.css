@@ -1,0 +1,33 @@
+.statisticsSection {
+    display: flex;
+    flex-direction: row;
+    gap: 32px;
+    padding-block: 72px;
+    color: var(--color-blue);
+}
+
+.statisticsBlock {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 32px;
+    padding: 88px 32px;
+    background-color: var(--color-yellow);
+    border: 5px dashed var(--color-blue);
+    border-radius: var(--border-radius-large);
+    flex: 1;
+}
+
+.info {
+    max-width: 670px;
+}
+
+.statBlock {
+    display: grid;
+    grid-template-columns: repeat(2, 296px);
+    gap: 32px 24px;
+}
+
+.stat {
+    padding-block: 8px;
+}
