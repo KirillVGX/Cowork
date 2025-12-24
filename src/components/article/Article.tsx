@@ -4,24 +4,32 @@ import styles from './article.module.css';
 interface ArticleProps {
     id: number;
     title: string;
-    price: string;
+    minutes: number;
+    category: string;
     imageUrl: string;
 }
 
-export default function Arlicle({ id, title, price, imageUrl }: ArticleProps) {
+export default function Arlicle({
+    id,
+    title,
+    minutes,
+    category,
+    imageUrl,
+}: ArticleProps) {
     return (
         <div className={styles.card}>
-            <div className={styles.imageWrapper}>
-                <Image
-                    src={imageUrl}
-                    alt={title}
-                    width={460}
-                    height={300}
-                    className={styles.image}
-                />
+            <Image
+                src={imageUrl}
+                alt={title}
+                width={460}
+                height={300}
+                className={styles.image}
+            />
+            <div className={styles.info}>
+                <span className={styles.category}>{category}</span>
+                <small>{minutes} min read</small>
             </div>
             <h3 className={styles.title}>{title}</h3>
-            <div className={styles.price}>${price}</div>
         </div>
     );
 }

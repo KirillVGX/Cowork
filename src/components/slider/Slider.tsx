@@ -19,14 +19,14 @@ export default function Slider({ children, showNumbers = true }: SliderProps) {
     );
     const [activeIndex, setActiveIndex] = useState(0);
 
-    const totalSlides = children.length; // 5 секций
+    const totalSlides = children.length;
 
     return (
         <section className={styles.sliderSection}>
             <Swiper
                 modules={[Navigation]}
                 navigation={false}
-                slidesPerView={1} // Показываем только 1 секцию за раз
+                slidesPerView={1}
                 onSwiper={setSwiperInstance}
                 onSlideChange={(swiper) => {
                     setActiveIndex(swiper.activeIndex);
