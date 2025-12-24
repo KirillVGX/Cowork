@@ -1,23 +1,28 @@
+import Link from 'next/link';
 import Image from 'next/image';
 import styles from './article.module.css';
 
 interface ArticleProps {
     id: number;
+    slug: string;
     title: string;
     minutes: number;
     category: string;
     imageUrl: string;
 }
 
-export default function Arlicle({
-    id,
+export default function Article({
+    slug,
     title,
     minutes,
     category,
     imageUrl,
 }: ArticleProps) {
     return (
-        <div className={styles.card}>
+        <Link
+            href={`/blog/${slug}`}
+            className={styles.card}
+        >
             <div className={styles.imageWrapper}>
                 <Image
                     src={imageUrl}
@@ -32,7 +37,8 @@ export default function Arlicle({
                 <span className={styles.category}>{category}</span>
                 <small>{minutes} min read</small>
             </div>
+
             <h3 className={styles.title}>{title}</h3>
-        </div>
+        </Link>
     );
 }

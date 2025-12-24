@@ -34,7 +34,6 @@ main {
     display: flex;
     flex-direction: column;
     padding-inline: 16px;
-    margin-bottom: 200px;
 }
 
 a {

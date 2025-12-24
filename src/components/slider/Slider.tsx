@@ -1,5 +1,6 @@
 'use client';
-import { useState, ReactNode } from 'react';
+
+import { useState, ReactNode, Children } from 'react';
 import styles from './slider.module.css';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import type { Swiper as SwiperType } from 'swiper';
@@ -9,17 +10,16 @@ import 'swiper/css/navigation';
 import Image from 'next/image';
 
 interface SliderProps {
-    children: ReactNode[];
+    children: ReactNode;
     showNumbers?: boolean;
 }
 
 export default function Slider({ children, showNumbers = true }: SliderProps) {
-    const [swiperInstance, setSwiperInstance] = useState<SwiperType | null>(
-        null
-    );
+    const [swiperInstance, setSwiperInstance] = useState<SwiperType | null>(null);
     const [activeIndex, setActiveIndex] = useState(0);
 
-    const totalSlides = children.length;
+    const slides = Children.toArray(children);
+    const totalSlides = slides.length;
 
     return (
         <section className={styles.sliderSection}>
@@ -28,12 +28,12 @@ export default function Slider({ children, showNumbers = true }: SliderProps) {
                 navigation={false}
                 slidesPerView={1}
                 onSwiper={setSwiperInstance}
-                onSlideChange={(swiper) => {
-                    setActiveIndex(swiper.activeIndex);
-                }}
+                onSlideChange={(swiper) =>
+                    setActiveIndex(swiper.activeIndex)
+                }
                 className={styles.swiper}
             >
-                {children.map((child, index) => (
+                {slides.map((child, index) => (
                     <SwiperSlide
                         key={index}
                         className={styles.slide}
@@ -60,7 +60,7 @@ export default function Slider({ children, showNumbers = true }: SliderProps) {
 
                 {showNumbers && (
                     <div className={styles.customPagination}>
-                        {Array.from({ length: totalSlides }).map((_, i) => (
+                        {slides.map((_, i) => (
                             <button
                                 key={i}
                                 className={`${styles.paginationBullet} ${

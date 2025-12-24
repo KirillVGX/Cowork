@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Arlicle from '@/components/article/Article';
 import Slider from '@/components/slider/Slider';
 import styles from './catalog.module.css';
-import { sections } from '@/data/sections';
+import { articles } from '@/data/articles';
 import Search from '@/components/search/Search';
 
 const categories = [
@@ -22,7 +22,7 @@ export default function Catalog() {
     const [activeCategory, setActiveCategory] = useState<Category>('All');
     const [query, setQuery] = useState('');
 
-    const allArticles = sections.flat();
+    const allArticles = articles.flat();
 
     const searchedArticles = allArticles.filter((item) =>
         item.title.toLowerCase().includes(query.toLowerCase())
@@ -72,16 +72,16 @@ export default function Catalog() {
                     )}
                 </div>
             ) : activeCategory === 'All' ? (
-                <Slider showNumbers={true}>
-                    {sections.map((sectionProducts, sectionIndex) => (
+                <Slider showNumbers>
+                    {articles.map((section, sectionIndex) => (
                         <div
                             key={sectionIndex}
                             className={styles.productsGrid}
                         >
-                            {sectionProducts.map((product) => (
+                            {section.map((article) => (
                                 <Arlicle
-                                    key={product.id}
-                                    {...product}
+                                    key={article.id}
+                                    {...article}
                                 />
                             ))}
                         </div>

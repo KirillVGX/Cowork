@@ -1,4 +1,18 @@
-export const sections = [
+import { slugify } from "@/utils/slugify";
+
+interface Article {
+  id: number;
+  title: string;
+  minutes: number;
+  category: string;
+  imageUrl: string;
+}
+
+interface ArticleWithSlug extends Article {
+  slug: string;
+}
+
+export const articles: ArticleWithSlug[][] = [
     [
         {
             id: 1,
@@ -324,4 +338,9 @@ export const sections = [
             imageUrl: '/articles/7.jpg',
         },
     ],
-];
+].map(section =>
+  section.map(article => ({
+    ...article,
+    slug: `${slugify(article.title)}-${article.id}`,
+  }))
+);

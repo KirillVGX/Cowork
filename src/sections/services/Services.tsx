@@ -22,7 +22,7 @@ export default function Services() {
 
             <div className={styles.services}>
                 {services.map((item) => (
-                    <div className={styles.card}>
+                    <div className={styles.card} key={item.title}>
                         <h3>{item.title}</h3>
                         <p style={{marginBottom: 24}}>{item.info}</p>
                         <h2>${item.price}</h2>
