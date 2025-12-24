@@ -55,3 +55,9 @@
     color: var(--color-light);
     border: 1px solid var(--color-blue);
 }
+
+.error {
+    margin: 0 auto;
+    width: fit-content;
+    grid-column: 2;
+}

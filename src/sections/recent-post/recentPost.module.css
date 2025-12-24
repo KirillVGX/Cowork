@@ -1,0 +1,54 @@
+.recentPostSection {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    color: var(--color-light);
+    background-color: var(--color-dark);
+    border-radius: var(--border-radius-large);
+    padding: 72px 32px 48px 32px;
+    margin-top: 72px;
+    height: 736px;
+}
+
+.subtitle {
+    color: var(--color-light);
+    background-color: var(--color-blue);
+    margin-bottom: 16px;
+    width: 109px;
+    padding: 0 12px;
+    border-radius: 100px;
+}
+
+.title {
+    max-width: 990px;
+}
+
+.infoBlock {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 48px;
+}
+
+.info {
+    display: flex;
+    flex-direction: row;
+    align-items: end;
+    gap: 16px;
+}
+
+.category {
+    padding: 4px 8px;
+    border-radius: 8px;
+    border: 1px solid var(--color-light);
+
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 150%;
+}
+
+.minutes {
+    font-weight: 600;
+    text-transform: uppercase;
+}

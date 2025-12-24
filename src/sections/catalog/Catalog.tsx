@@ -68,7 +68,7 @@ export default function Catalog() {
                             />
                         ))
                     ) : (
-                        <p>Nothing found</p>
+                        <h2 className={styles.error}>Nothing found</h2>
                     )}
                 </div>
             ) : activeCategory === 'All' ? (

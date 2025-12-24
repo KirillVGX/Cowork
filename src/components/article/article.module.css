@@ -10,14 +10,20 @@
 }
 
 .card:hover {
-    box-shadow:
-    0 20px 45px rgba(0, 0, 0, 0.12),
-    0 8px 20px rgba(0, 0, 0, 0.08);
-  transform: translateY(-4px);
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.12), 0 8px 20px rgba(0, 0, 0, 0.08);
+    transform: translateY(-4px);
+}
+
+.imageWrapper {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 460 / 300;
+    overflow: hidden;
+    border-radius: 24px;
 }
 
 .image {
-    border-radius: 24px;
+    object-fit: cover;
 }
 
 .info {

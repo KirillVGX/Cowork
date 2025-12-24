@@ -18,13 +18,16 @@ export default function Arlicle({
 }: ArticleProps) {
     return (
         <div className={styles.card}>
-            <Image
-                src={imageUrl}
-                alt={title}
-                width={460}
-                height={300}
-                className={styles.image}
-            />
+            <div className={styles.imageWrapper}>
+                <Image
+                    src={imageUrl}
+                    alt={title}
+                    fill
+                    className={styles.image}
+                    sizes="(max-width: 768px) 100vw, 460px"
+                />
+            </div>
+
             <div className={styles.info}>
                 <span className={styles.category}>{category}</span>
                 <small>{minutes} min read</small>
