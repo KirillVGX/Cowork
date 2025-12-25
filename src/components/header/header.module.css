@@ -34,3 +34,50 @@
     display: flex;
     gap: 24px;
 }
+
+.burgerBtn {
+    width: 60px;
+    height: 45px;
+    padding: 6.5px 14px;
+    background-color: var(--color-dark);
+    border-radius: 42px;
+    cursor: pointer;
+}
+
+@media (max-width: 1024px) {
+    .actions,
+    .navMenu {
+        gap: 24px;
+    }
+
+    .AuthButtons {
+        gap: 16px;
+    }
+}
+
+@media (max-width: 768px) {
+    .actions {
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: start;
+        gap: 32px;
+        height: 100%;
+    }
+
+    .navMenu {
+        flex-direction: column;
+    }
+
+    .navItem p {
+        color: var(--color-light);
+        font-family: var(--font-base);
+        font-weight: 700;
+        font-size: 32px;
+        line-height: 140%;
+    }
+
+    .AuthButtons {
+        margin-left: auto;
+        gap: 24px;
+    }
+}

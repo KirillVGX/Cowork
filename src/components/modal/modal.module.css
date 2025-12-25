@@ -1,0 +1,43 @@
+.overlay {
+    position: fixed;
+    inset: 0;
+    background: #000; 
+    z-index: 20;
+    width: 100vw;
+    height: 100vh;
+}
+
+.modal {
+    width: 100vw;
+    height: 100vh;
+    padding: 26px 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.closeButton {
+    max-width: 60px;
+    max-height: 45px;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    right: 16px;
+    top: 44px;
+    background-color: transparent;
+    border: none;
+    border-radius: 42px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.2s ease;
+}
+
+.closeButton:hover {
+    background-color: rgb(58, 57, 57);
+}
+
+.closeButton img {
+    width: 60%;
+    height: 60%;
+}
