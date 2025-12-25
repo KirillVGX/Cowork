@@ -1,7 +1,12 @@
+'use client';
+
 import Image from 'next/image';
 import styles from './our.module.css';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 
 export default function Our() {
+    const isTablet = useMediaQuery('(max-width: 768px)');
+
     return (
         <section className={styles.ourSection}>
             <div className={styles.head}>
@@ -20,17 +25,25 @@ export default function Our() {
             </div>
 
             <div className={styles.advantages}>
-                <div
-                    className={styles.card}
-                    style={{ flex: 2 }}
-                >
-                    <Image
-                        src="/our/1.jpg"
-                        alt="Background image"
-                        width={600}
-                        height={240}
-                        className={styles.image}
-                    />
+                <div className={`${styles.card} ${styles.bigCard}`}>
+                    {!isTablet ? (
+                        <Image
+                            src="/our/1.jpg"
+                            alt="Background image"
+                            width={600}
+                            height={240}
+                            className={styles.image}
+                        />
+                    ) : (
+                        <Image
+                            src="/our/2.jpg"
+                            alt="Background image"
+                            width={260}
+                            height={240}
+                            className={styles.image}
+                        />
+                    )}
+
                     <h3 className={styles.name}>Our Story</h3>
                     <p className={styles.description}>
                         Cowork was founded in 2023 by Jensen Turner who saw an
@@ -46,25 +59,29 @@ export default function Our() {
                     className={styles.card}
                     style={{ backgroundColor: 'hsla(238, 96%, 59%, 1)' }}
                 >
-                    <Image
-                        src="/our/2.jpg"
-                        alt="Background image"
-                        width={260}
-                        height={240}
-                        className={styles.image}
-                    />
+                    {!isTablet && (
+                        <Image
+                            src="/our/2.jpg"
+                            alt="Background image"
+                            width={260}
+                            height={240}
+                            className={styles.image}
+                        />
+                    )}
                     <h3 className={styles.name}>Our Spaces</h3>
                     <p className={styles.tap}>Tap to expand</p>
                     <h4 className={styles.num}>2</h4>
                 </div>
                 <div className={styles.card}>
-                    <Image
-                        src="/our/3.jpg"
-                        alt="Background image"
-                        width={260}
-                        height={240}
-                        className={styles.image}
-                    />
+                    {!isTablet && (
+                        <Image
+                            src="/our/3.jpg"
+                            alt="Background image"
+                            width={260}
+                            height={240}
+                            className={styles.image}
+                        />
+                    )}
                     <h3 className={styles.name}>Our Community</h3>
                     <p className={styles.tap}>Tap to expand</p>
                     <h4 className={styles.num}>3</h4>

@@ -6,7 +6,6 @@
     background-color: var(--color-dark);
     color: var(--color-light);
     padding: 72px 32px 48px 32px;
-    gap: 64px;
 }
 
 .pricing {
@@ -15,6 +14,7 @@
     gap: 36px;
     justify-content: space-between;
     align-items: end;
+    margin-bottom: 64px;
 }
 
 .title {
@@ -39,6 +39,10 @@
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;
+}
+
+.quote {
+    max-width: 320px;
 }
 
 .plans {
@@ -133,4 +137,92 @@
     border-radius: 100px;
     border: 1px solid var(--color-dark);
     padding-inline: 12px;
+}
+
+.bottomText {
+    margin-top: 32px;
+    align-self: center;
+}
+
+@media (max-width: 1224px) {
+    .plan {
+        padding: 24px;
+    }
+
+    .feature p {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 1024px) {
+    .plansSection {
+        padding: 24px;
+        margin-block: 24px;
+    }
+
+    .pricing {
+        flex-direction: column;
+        gap: 16px;
+        align-items: start;
+        margin-bottom: 48px;
+    }
+
+    .plans {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .plan {
+        width: 100%;
+        max-width: 700px;
+        align-items: center;
+        text-align: center;
+    }
+
+    .priceContainer {
+        max-width: 256px;
+        column-gap: 16px;
+    }
+
+    .priceContainer > * {
+        margin-inline: auto;
+    }
+
+    .num::before {
+        bottom: 0px;
+        font-size: 48px;
+    }
+
+    .feature p {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 768px) {
+    .beforeEl::before {
+        right: -28%;
+        bottom: 22px;
+        width: 48px;
+        height: 48px;
+    }
+}
+
+@media (max-width: 576px) {
+    .plan {
+        align-items: start;
+        text-align: start;
+    }
+}
+
+@media (max-width: 400px) {
+    .title {
+        font-size: 36px;
+    }
+
+    .beforeEl::before {
+        right: -25%;
+        bottom: 19px;
+        width: 36px;
+        height: 36px;
+    }
 }

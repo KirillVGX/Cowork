@@ -13,7 +13,7 @@ export default function Plans() {
                     </h1>
                 </div>
 
-                <p style={{ maxWidth: 320 }}>
+                <p className={styles.quote}>
                     Invest in spaces that drives your business. Clear,
                     straightforward and tailored to your needs.
                 </p>
@@ -66,6 +66,10 @@ export default function Plans() {
                     </div>
                 ))}
             </div>
+
+            <p className={styles.bottomText}>
+                All plans require a 12-month agreement. Prices are per person.
+            </p>
         </section>
     );
 }

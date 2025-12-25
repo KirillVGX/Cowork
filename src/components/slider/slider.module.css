@@ -8,7 +8,7 @@
     height: auto;
 }
 
-/* ---------- НАВИГАЦИЯ В ОДНУ СТРОКУ ---------- */
+/* NAVIGATION */
 .navigationRow {
     display: flex;
     align-items: center;
@@ -19,7 +19,33 @@
     min-height: 60px;
 }
 
-/* ---------- СТРЕЛКИ ---------- */
+@media (max-width: 768px) {
+    .navigationRow {
+        gap: 8px;
+    }
+}
+
+.dots {
+    width: 48px;
+    height: 48px;
+    font-size: 18px;
+    line-height: 0%;
+    border-radius: 50%;
+    position: relative;
+    border: 2px solid var(--color-dark);
+    color: #000;
+    user-select: none;
+}
+
+.dots h5 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 41px;
+}
+
+/* ARROWS */
 .arrow {
     width: 48px;
     height: 48px;
@@ -49,7 +75,7 @@
     cursor: not-allowed;
 }
 
-/* ---------- КАСТОМНАЯ ПАГИНАЦИЯ ---------- */
+/* PAGINATION */
 .customPagination {
     display: flex;
     align-items: center;

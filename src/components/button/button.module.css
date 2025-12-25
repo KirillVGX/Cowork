@@ -37,3 +37,9 @@
     font-size: 20px;
     letter-spacing: 0%;
 }
+
+@media (max-width: 360px) {
+    .large {
+        padding-inline: 30px;
+    }
+}

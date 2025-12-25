@@ -13,12 +13,7 @@
     font-size: 16px;
     font-family: var(--font-heading);
     outline: none;
-
-    background-color: white;
-    background-image: url('/search.jpg');
-    background-repeat: no-repeat;
-    background-position: 110px center;
-    background-size: 40px;
+    position: relative;
 }
 
 .input::placeholder {
@@ -30,7 +25,12 @@
 
 .image {
     position: absolute;
-    opacity: 1;
-    display: block;
-    z-index: 11111;
+    top: 12px;
+    right: 24px;
+}
+
+@media (max-width: 768px) {
+    .search {
+        max-width: none;
+    }
 }

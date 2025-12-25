@@ -81,7 +81,7 @@ export default function Header() {
                                 className={styles.navItem}
                                 style={{ marginBlock: '32px 18px' }}
                             >
-                                <Link href="/">
+                                <Link href="/" onClick={() => setIsOpen(false)}>
                                     <Image
                                         className={styles.logo}
                                         src="/logo-light.svg"
@@ -96,7 +96,7 @@ export default function Header() {
                                     key={href}
                                     className={styles.navItem}
                                 >
-                                    <Link href={href}>
+                                    <Link href={href} onClick={() => setIsOpen(false)}>
                                         <p>{label}</p>
                                     </Link>
                                 </li>

@@ -46,3 +46,9 @@
     font-size: 14px;
     line-height: 150%;
 }
+
+@media (max-width: 768px) {
+    .card {
+        align-items: start;
+    }
+}

@@ -5,7 +5,7 @@ export default function About() {
     return (
         <>
             <Plans />
-            <Services />
+            {/* <Services /> */}
         </>
     );
 }

@@ -1,5 +1,5 @@
 .footer {
-    max-width: 1488px;
+    max-width: 1520px;
     width: 100%;
     padding-block: 32px;
     display: flex;
@@ -145,10 +145,6 @@
     }
 }
 
-@media (max-width: 768px) {
-
-}
-
 @media (max-width: 576px) {
     .footerMain {
         gap: 40px;
@@ -177,5 +173,17 @@
 
     .list {
         gap: 0;
+    }
+}
+
+@media (max-width: 362px) {
+    .privacy {
+        gap: 8px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .undelline small {
+        max-width: 50px;
     }
 }

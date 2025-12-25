@@ -25,6 +25,13 @@ export default function Search({
                     onSearch(e.target.value);
                 }}
             />
+            <Image
+                src="/search.svg"
+                alt="Search"
+                width={40}
+                height={24}
+                className={styles.image}
+            />
         </div>
     );
 }

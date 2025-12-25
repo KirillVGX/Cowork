@@ -63,6 +63,11 @@
     color: var(--color-dark);
 }
 
+.bigCard {
+    flex: 2;
+    min-width: 430px;
+}
+
 .card:nth-child(2) {
     color: var(--color-light);
 }
@@ -93,4 +98,76 @@
     position: absolute;
     bottom: 32px;
     right: 32px;
+}
+
+@media (max-width: 1224px) {
+    .advantages {
+        flex-wrap: wrap;
+    }
+
+    .card {
+        padding: 24px;
+        min-width: 40vw;
+    }
+
+    .bigCard {
+        min-width: 65vw;
+    }
+}
+
+@media (max-width: 768px) {
+    .ourSection {
+        gap: 0;
+        margin-block: 24px;
+    }
+
+    .titleBlock {
+        margin-bottom: 24px;
+        align-self: center;
+    }
+
+    .advantages {
+        flex-direction: column;
+        max-width: 500px;
+        align-self: center;
+        margin-bottom: 32px;
+    }
+
+    .head {
+        display: contents;
+    }
+
+    .head p {
+        order: 1;
+        align-self: center;
+        text-align: center;
+    }
+
+    .num {
+        top: 29px;
+        right: 24px;
+        font-size: 24px;
+    }
+
+    .image {
+        margin-bottom: 16px;
+        font-size: 24px;
+    }
+
+    .name {
+        font-size: 32px;
+        margin-bottom: 8px;
+    }
+
+    .bigCard .name {
+        order: -1;
+        margin-bottom: 16px;
+    }
+
+    .beforeEl::before {
+        width: 32px;
+        height: 32px;
+        bottom: 16px;
+        right: -28%;
+    }
 }

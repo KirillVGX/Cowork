@@ -6,7 +6,7 @@ export default function RecentPost() {
         <section className={styles.recentPostSection}>
             <div>
                 <h6 className={styles.subtitle}>Recent Post</h6>
-                <h1 className={styles.title}>7 Team Collaboration Tools for Remote Teams</h1>
+                <h1 className={styles.title}>7 Team Collab Tools for Remote Teams</h1>
             </div>
 
             <div className={styles.infoBlock}>
