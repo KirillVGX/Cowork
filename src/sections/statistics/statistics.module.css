@@ -31,3 +31,50 @@
 .stat {
     padding-block: 8px;
 }
+
+.imageWrapper {
+    position: relative;
+    flex: 1;
+    min-height: 595px;
+}
+
+.image {
+    object-fit: cover;
+    border-radius: var(--border-radius-large);
+}
+
+@media (max-width: 1024px) {
+    .statisticsSection {
+        flex-direction: column;
+        padding-block: 0px 12px;
+    }
+
+    .statisticsBlock {
+        align-items: center;
+    }
+
+    .procent, .paragraph, .info  {
+        text-align: center;
+    }
+}
+
+@media (max-width: 768px) {
+    .statisticsBlock {
+        padding: 32px 24px;
+    }
+
+    .statBlock {
+        gap: 24px;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .stat {
+        width: calc(50vw - (16px + 24px + 21px));
+    }
+
+    .imageWrapper {
+        min-height: 300px;
+    }
+}

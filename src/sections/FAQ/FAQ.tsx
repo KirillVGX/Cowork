@@ -16,7 +16,7 @@ export default function FAQ() {
         <section className={styles.FAQsection}>
             <div className={styles.quote}>
                 <h6 style={{marginBottom: 16}}>Frequently Asked Questions</h6>
-                <h2>Your Roadmap to Coworking Clarity</h2>
+                <h2 style={{marginBottom: 24}}>Your Roadmap to Coworking Clarity</h2>
                 <p>
                     Frequently asked questions ordered by popularity. Remember
                     that if the visitor has not committed to the call to action,

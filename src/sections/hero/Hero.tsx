@@ -1,8 +1,12 @@
+'use client'
+
 import Image from 'next/image';
 import styles from './hero.module.css';
 import Button from '@/components/button/Button';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 
 export default function Hero() {
+    const isTablet = useMediaQuery('(max-width: 768px)');
     return (
         <section className={styles.heroSection}>
             <div className={styles.infoBlock}>
@@ -23,13 +27,23 @@ export default function Hero() {
                 </div>
             </div>
             <div className={styles.img}>
-                <Image
-                    className={styles.logo}
-                    src="/image.svg"
-                    alt="Mens in cafe with laptop"
-                    width={460}
-                    height={642}
-                />
+                {!isTablet ? (
+                    <Image
+                        className={styles.backImage}
+                        src="/image.svg"
+                        alt="Mens in cafe with laptop"
+                        width={460}
+                        height={642}
+                    />
+                ) : (
+                    <Image
+                        src="/Image-small.jpg"
+                        alt="Mens in cafe with laptop"
+                        width={360}
+                        height={260}
+                        
+                    />
+                )}
             </div>
         </section>
     );

@@ -6,9 +6,11 @@
     gap: 80px;
 }
 
-.title {
-    display: inline-flex;
-    gap: 16px;
+.titleContainer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    column-gap: 16px;
 }
 
 .advantages {
@@ -28,6 +30,37 @@
     flex: 1;
 }
 
+.advantageTitle,
 .advantageInfo {
     text-align: center;
+}
+
+.image {
+    width: 180px;
+    height: auto;
+}
+
+@media (max-width: 1024px) {
+    .advantagesSection {
+        gap: 32px;
+    }
+
+    .advantages {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .advantage {
+        min-width: 320px;
+    }
+}
+
+@media (max-width: 768px) {
+    .advantage {
+        gap: 16px;
+    }
+
+    .image {
+        width: 120px;
+    }
 }

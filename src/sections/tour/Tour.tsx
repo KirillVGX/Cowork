@@ -1,8 +1,13 @@
+'use client';
+
 import Image from 'next/image';
 import styles from './tour.module.css';
 import Button from '@/components/button/Button';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 
 export default function Tour() {
+    const isTablet = useMediaQuery('(max-width: 1024px)');
+
     return (
         <section className={styles.tourSection}>
             <div className={styles.explore}>
@@ -28,19 +33,31 @@ export default function Tour() {
             </div>
 
             <div className={styles.videoBlock}>
-                <Image
-                    className={styles.preview}
-                    src="/virtual-bg.jpg"
-                    alt="Virtual tour video"
-                    width={1488}
-                    height={700}
-                />
+                {!isTablet ? (
+                    <Image
+                        className={styles.preview}
+                        src="/virtual-bg.jpg"
+                        alt="Virtual tour video"
+                        width={1488}
+                        height={700}
+                    />
+                ) : (
+                    <Image
+                        className={styles.preview}
+                        src="/virtual-bg-small.jpg"
+                        alt="Virtual tour video"
+                        width={1080}
+                        height={720}
+                        style={{ width: '100%', height: 'auto' }}
+                    />
+                )}
                 <button className={styles.playBtn}>
                     <Image
                         src="/Play-Button.svg"
                         alt="Play button"
                         width={128}
                         height={103}
+                        style={{ width: '100%', height: 'auto' }}
                     />
                 </button>
             </div>

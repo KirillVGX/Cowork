@@ -1,8 +1,14 @@
+'use client';
+
 import Image from 'next/image';
 import styles from './reviews.module.css';
 import { reviews } from '@/data/reviews';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
+import ScrollbarSwiper from '@/components/scrollbar/Scrollbar';
 
 export default function Reviews() {
+    const isTablet = useMediaQuery('(max-width: 768px)');
+
     return (
         <section className={styles.reviewsSection}>
             <div className={styles.reviewsHeader}>
@@ -19,28 +25,53 @@ export default function Reviews() {
                 <h4 className={styles.subtitle}>Cowork in Words</h4>
             </div>
 
-            <div className={styles.reviews}>
-                {reviews.map((item, i) => (
-                    <div
-                        className={`${styles.card} ${styles[`card-${i}`]}`}
-                        key={item.id}
-                        style={{ backgroundColor: item.color }}
-                    >
-                        <Image
-                            src={item.avatarSrc}
-                            alt={item.avatarAlt}
-                            width={56}
-                            height={56}
-                            style={{ margin: '0 auto', marginBottom: 24 }}
-                        />
+            {!isTablet ? (
+                <div className={styles.reviews}>
+                    {reviews.map((item, i) => (
+                        <div
+                            className={`${styles.card} ${styles[`card-${i}`]}`}
+                            key={item.id}
+                            style={{ backgroundColor: item.color }}
+                        >
+                            <Image
+                                src={item.avatarSrc}
+                                alt={item.avatarAlt}
+                                width={56}
+                                height={56}
+                                style={{ margin: '0 auto', marginBottom: 24 }}
+                            />
 
-                        <p>{item.review}</p>
+                            <p>{item.review}</p>
 
-                        <h6 className={styles.name}>{item.name}</h6>
-                        <h6 className={styles.role}>{item.role}</h6>
-                    </div>
-                ))}
-            </div>
+                            <h6 className={styles.name}>{item.name}</h6>
+                            <h6 className={styles.role}>{item.role}</h6>
+                        </div>
+                    ))}
+                </div>
+            ) : (
+                <ScrollbarSwiper>
+                    {reviews.map((item, i) => (
+                        <div
+                            className={`${styles.card} ${styles[`card-${i}`]}`}
+                            key={item.id}
+                            style={{ backgroundColor: item.color }}
+                        >
+                            <Image
+                                src={item.avatarSrc}
+                                alt={item.avatarAlt}
+                                width={56}
+                                height={56}
+                                style={{ margin: '0 auto', marginBottom: 24 }}
+                            />
+
+                            <p>{item.review}</p>
+
+                            <h6 className={styles.name}>{item.name}</h6>
+                            <h6 className={styles.role}>{item.role}</h6>
+                        </div>
+                    ))}
+                </ScrollbarSwiper>
+            )}
         </section>
     );
 }

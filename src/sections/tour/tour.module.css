@@ -76,3 +76,43 @@
     left: 50%;
     transform: translate(-50%, -50%);
 }
+
+@media (max-width: 1024px) {
+    .tourSection {
+        margin-block: 24px;
+    }
+
+    .explore {
+        display: contents;
+    }
+
+    .titleBlock, .quoteAndBtn {
+        padding: 24px;
+    }
+
+    .beforeEl::before {
+        bottom: 12px;
+    }
+
+    .quoteAndBtn {
+        order: 1;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .paragraph {
+        max-width: none;
+        text-align: center;
+    }
+
+    .preview {
+        border-radius: 10%;
+    }
+}
+
+@media (max-width: 390px) {
+    .beforeEl::before {
+        bottom: 0px;
+        right: -56%;
+    }
+}

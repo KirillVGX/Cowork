@@ -11,7 +11,7 @@ import Insights from '@/sections/insights/Insights';
 export default function HomePage() {
     return (
         <>
-            {/* <Hero />
+            <Hero />
             <Logotypes />
             <Advantages />
             <Tour />
@@ -19,7 +19,7 @@ export default function HomePage() {
             <Reviews />
             <FAQ />
             <CTA />
-            <Insights /> */}
+            <Insights />
         </>
     );
 }

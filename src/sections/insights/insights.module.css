@@ -16,7 +16,7 @@
 .titleBlock {
     display: flex;
     align-items: center;
-    gap: 16px;
+    column-gap: 16px;
     flex-wrap: wrap;
     justify-content: center;
     text-align: center;
@@ -61,4 +61,39 @@
 
 .text {
     max-width: 416px;
+}
+
+@media (max-width: 1224px) {
+    .insightsSection {
+        padding-block: 36px;
+    }
+
+    .insights {
+        flex-wrap: wrap;
+        gap: 32px;
+    }
+
+    .card {
+        min-width: 460px;
+    }
+}
+
+@media (max-width: 576px) {
+    .insightsSection {
+        gap: 0;
+    }
+
+    .insights {
+        margin-block: 48px 32px;
+    }
+
+    .card {
+        min-width: 0;
+        width: 100%;
+        align-items: center;
+    }
+
+    .trending {
+        align-self: start;
+    }
 }

@@ -11,6 +11,7 @@
     width: 100vw;
     height: 100vh;
     padding: 26px 20px;
+    padding-bottom: 90px;
     display: flex;
     flex-direction: column;
 }

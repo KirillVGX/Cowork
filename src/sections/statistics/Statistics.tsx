@@ -24,12 +24,15 @@ export default function Statistics() {
                 </div>
             </div>
 
-            <Image
-                src="/statistics-bg.jpg"
-                alt="Office"
-                width={640}
-                height={595}
-            />
+            <div className={styles.imageWrapper}>
+                <Image
+                    src="/statistics-bg.jpg"
+                    alt="Office"
+                    fill
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    className={styles.image}
+                />
+            </div>
         </section>
     );
 }

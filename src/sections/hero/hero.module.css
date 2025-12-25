@@ -67,3 +67,67 @@
     top: -12px;
     left: 0;
 }
+
+@media (max-width: 1280px) {
+    .heroSection {
+        align-items: center;
+    }
+
+    .infoBlock {
+        height: 100%;
+        gap: 48px;
+    }
+
+    .title {
+        font-size: 72px;
+    }
+
+    .coworkWrapper::after {
+        height: 96px;
+        left: 45%;
+    }
+
+    .claim {
+        flex-direction: column;
+        gap: 48px;
+    }
+
+    .rocket {
+        order: -1;
+    }
+}
+
+@media (max-width: 1024px) {
+    .heroSection {
+        padding-block: 24px;
+        flex-direction: column;
+    }
+
+    .img {
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .infoBlock {
+        padding: 32px 24px;
+        gap: 72px;
+    }
+
+    .img {
+        display: block;
+        width: auto;
+        aspect-ratio: auto;
+    }
+}
+
+@media (max-width: 576px) {
+    .title {
+        font-size: 48px;
+    }
+
+    .coworkWrapper::after {
+        height: 71px;
+        bottom: -4px;
+    }
+}

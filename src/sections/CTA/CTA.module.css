@@ -24,3 +24,24 @@
     text-align: center;
     margin-bottom: 48px;
 }
+
+.image {
+    width: 240px;
+    height: auto;
+}
+
+@media (max-width: 768px) {
+    .CTAsection {
+        padding: 24px;
+        margin-block: 36px;
+    }
+    
+    .titleBlock {
+        gap: 0px;
+    }
+
+    .image {
+        margin-block: 8px;
+        width: 145px;
+    }
+}

@@ -7,12 +7,13 @@ export default function CTA() {
         <section className={styles.CTAsection}>
             <div className={styles.titleBlock}>
                 <h1>Seize</h1>
-                <span>
+                <span className={styles.imageWrapper}>
                     <Image
                         src="/title-cta.svg"
                         alt="puzzle"
                         width={240}
                         height={96}
+                        className={styles.image}
                     />
                 </span>
                 <h1>The Moment</h1>

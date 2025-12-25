@@ -1,0 +1,24 @@
+.sliderSection {
+    width: 100%;
+}
+
+.swiper {
+    width: 100%;
+    padding-bottom: 24px; 
+}
+
+.slide {
+    display: flex;
+    justify-content: center;
+}
+
+/* scrollbar */
+.swiper-scrollbar {
+    height: 4px;
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.swiper-scrollbar-drag {
+    background: #fff;
+    border-radius: 4px;
+}

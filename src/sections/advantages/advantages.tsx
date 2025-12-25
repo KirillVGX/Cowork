@@ -5,18 +5,19 @@ import { advantages } from '@/data/advantages';
 export default function Advantages() {
     return (
         <section className={styles.advantagesSection}>
-            <h2 className={styles.title}>
-                Why Choose{' '}
+            <div className={styles.titleContainer}>
+                <h2 className={styles.title}>Why Choose</h2>
                 <span>
                     <Image
                         src="/advantages/title.jpg"
                         alt="railway"
                         width={180}
                         height={58}
+                        className={styles.image}
                     />
-                </span>{' '}
-                Cowork?
-            </h2>
+                </span>
+                <h2 className={styles.title}>Cowork?</h2>
+            </div>
 
             <div className={styles.advantages}>
                 {advantages.map((item) => (
