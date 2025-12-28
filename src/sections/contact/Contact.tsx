@@ -9,6 +9,53 @@ export default function Contact() {
     const plans = ['Basic', 'Pro', 'Business'];
     const [plan, setPlan] = useState('');
 
+    const [formData, setFormData] = useState({
+        firstName: '',
+        lastName: '',
+        email: '',
+        phone: '',
+        plan: '',
+        message: '',
+    });
+
+    const handleChange = (
+        e: React.ChangeEvent<
+            HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+        >
+    ) => {
+        const { id, value } = e.target;
+        setFormData((prev) => ({
+            ...prev,
+            [id]: value,
+        }));
+    };
+
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+
+        const data = {
+            ...formData,
+            plan,
+        };
+
+        if (!data.email || !data.plan) {
+            alert('Please fill required fields');
+            return;
+        }
+
+        setFormData({
+            firstName: '',
+            lastName: '',
+            email: '',
+            phone: '',
+            plan: '',
+            message: '',
+        });
+        setPlan('');
+
+        console.log(formData);
+    };
+
     return (
         <section className={styles.contactSection}>
             <div className={styles.head}>
@@ -56,7 +103,11 @@ export default function Contact() {
                     </div>
                 </div>
                 <div className={styles.formContainer}>
-                    <form className={styles.form} autoComplete='off'>
+                    <form
+                        className={styles.form}
+                        autoComplete="off"
+                        onSubmit={handleSubmit}
+                    >
                         <div className={styles.names}>
                             <label
                                 htmlFor="firstName"
@@ -69,6 +120,8 @@ export default function Contact() {
                                 id="firstName"
                                 placeholder="First Name"
                                 className={styles.input}
+                                value={formData.firstName}
+                                onChange={handleChange}
                             />
 
                             <label
@@ -82,6 +135,8 @@ export default function Contact() {
                                 id="lastName"
                                 placeholder="Last Name"
                                 className={styles.input}
+                                value={formData.lastName}
+                                onChange={handleChange}
                             />
                         </div>
                         <label
@@ -95,6 +150,8 @@ export default function Contact() {
                             id="email"
                             placeholder="Email Address"
                             className={styles.input}
+                            value={formData.email}
+                            onChange={handleChange}
                         />
 
                         <label
@@ -108,6 +165,8 @@ export default function Contact() {
                             id="phone"
                             placeholder="Phone"
                             className={styles.input}
+                            value={formData.phone}
+                            onChange={handleChange}
                         />
 
                         <label
@@ -119,9 +178,10 @@ export default function Contact() {
 
                         <select
                             id="plan"
+                            value={formData.plan}
+                            onChange={handleChange}
                             className={`${styles.input} ${styles.select}`}
-                            value={plan}
-                            onChange={(e) => setPlan(e.target.value)}
+                            // onChange={(e) => setPlan(e.target.value)}
                             required
                         >
                             <option
@@ -145,9 +205,14 @@ export default function Contact() {
                             id="message"
                             className={`${styles.input} ${styles.textarea}`}
                             placeholder="Message"
+                            value={formData.message}
+                            onChange={handleChange}
                         />
 
-                        <Button text="Submit" />
+                        <Button
+                            text="Submit"
+                            type="submit"
+                        />
                     </form>
 
                     <small className={styles.notate}>

@@ -44,11 +44,15 @@ export default function Header() {
                     </nav>
 
                     <div className={styles.AuthButtons}>
-                        <Button text="Log In" />
-                        <Button
-                            text="Sign Up"
-                            color="blue"
-                        />
+                        <Link href="/login">
+                            <Button text="Log In" />
+                        </Link>
+                        <Link href="/register">
+                            <Button
+                                text="Sign Up"
+                                color="blue"
+                            />
+                        </Link>
                     </div>
                 </div>
             ) : (
@@ -81,7 +85,10 @@ export default function Header() {
                                 className={styles.navItem}
                                 style={{ marginBlock: '32px 18px' }}
                             >
-                                <Link href="/" onClick={() => setIsOpen(false)}>
+                                <Link
+                                    href="/"
+                                    onClick={() => setIsOpen(false)}
+                                >
                                     <Image
                                         className={styles.logo}
                                         src="/logo-light.svg"
@@ -96,7 +103,10 @@ export default function Header() {
                                     key={href}
                                     className={styles.navItem}
                                 >
-                                    <Link href={href} onClick={() => setIsOpen(false)}>
+                                    <Link
+                                        href={href}
+                                        onClick={() => setIsOpen(false)}
+                                    >
                                         <p>{label}</p>
                                     </Link>
                                 </li>

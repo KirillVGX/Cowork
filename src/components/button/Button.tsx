@@ -5,6 +5,7 @@ type ButtonProps = {
     color?: 'null' | 'blue' | 'red';
     size?: 'small' | 'large';
     style?: object;
+    type?: "button" | "submit" | "reset" | undefined;
     onClick?: () => void;
 };
 
@@ -13,6 +14,7 @@ export default function Button({
     color = 'null',
     size = 'small',
     style,
+    type = 'button',
     onClick,
 }: ButtonProps) {
     return (
@@ -20,6 +22,7 @@ export default function Button({
             className={`${styles.button} ${styles[color]} ${styles[size]}`}
             style={style}
             onClick={onClick}
+            type={type}
         >
             {text}
         </button>
