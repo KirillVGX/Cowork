@@ -1,54 +1,50 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useActionState } from 'react';
+import { useFormStatus } from 'react-dom';
+import { useRouter } from 'next/navigation';
+import { signInWithCredentials, LoginState } from '@/actions/sign-in';
+import { getSession } from 'next-auth/react';
+
+const initialState: LoginState = {
+    ok: false,
+};
+
+function SubmitButton() {
+    const { pending } = useFormStatus();
+
+    return (
+        <button
+            type="submit"
+            disabled={pending}
+        >
+            {pending ? 'Вход...' : 'Войти'}
+        </button>
+    );
+}
 
 export default function LoginPage() {
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState<string | null>(null);
-    const [success, setSuccess] = useState(false);
+    const [state, formAction] = useActionState(
+        signInWithCredentials,
+        initialState
+    );
 
-    async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
-        e.preventDefault();
-        const form = e.currentTarget;
+    const router = useRouter();
 
-        setLoading(true);
-        setError(null);
-        setSuccess(false);
-
-        const formData = new FormData(form);
-
-        try {
-            const res = await fetch('/api/login', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    login: formData.get('login'),
-                    password: formData.get('password'),
-                }),
-            });
-
-            const data = await res.json();
-
-            if (!res.ok) {
-                throw new Error(data.error || 'Ошибка входа');
-            }
-
-            setSuccess(true);
-            form.reset();
-        } catch (err: any) {
-            setError(err.message || 'Ошибка сети');
-        } finally {
-            setLoading(false);
+    useEffect(() => {
+        if (state.ok) {
+            getSession(); 
+            router.push('/');
         }
-    }
+    }, [state.ok]);
 
     return (
         <div style={{ padding: 24, maxWidth: 400 }}>
             <h1>Вход</h1>
 
-            <form onSubmit={onSubmit}>
+            <form action={formAction}>
                 <input
-                    name="login"
+                    name="email"
                     type="email"
                     placeholder="Email"
                     required
@@ -61,16 +57,12 @@ export default function LoginPage() {
                     required
                 />
 
-                <button
-                    type="submit"
-                    disabled={loading}
-                >
-                    {loading ? 'Вход...' : 'Войти'}
-                </button>
+                <SubmitButton />
             </form>
 
-            {error && <p style={{ color: 'red' }}>{error}</p>}
-            {success && <p style={{ color: 'green' }}>Успешный вход 🎉</p>}
+            {state.error && <p style={{ color: 'red' }}>{state.error}</p>}
+
+            {state.ok && <p style={{ color: 'green' }}>Вы вошли ✅</p>}
         </div>
     );
 }

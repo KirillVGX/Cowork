@@ -2,60 +2,9 @@
 
 import Image from 'next/image';
 import styles from './contact.module.css';
-import { useEffect, useState } from 'react';
-import Button from '@/components/button/Button';
+import ContactForm from '@/forms/contactForm/constact.form';
 
 export default function Contact() {
-    const plans = ['Basic', 'Pro', 'Business'];
-    const [plan, setPlan] = useState('');
-
-    const [formData, setFormData] = useState({
-        firstName: '',
-        lastName: '',
-        email: '',
-        phone: '',
-        plan: '',
-        message: '',
-    });
-
-    const handleChange = (
-        e: React.ChangeEvent<
-            HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
-        >
-    ) => {
-        const { id, value } = e.target;
-        setFormData((prev) => ({
-            ...prev,
-            [id]: value,
-        }));
-    };
-
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-
-        const data = {
-            ...formData,
-            plan,
-        };
-
-        if (!data.email || !data.plan) {
-            alert('Please fill required fields');
-            return;
-        }
-
-        setFormData({
-            firstName: '',
-            lastName: '',
-            email: '',
-            phone: '',
-            plan: '',
-            message: '',
-        });
-        setPlan('');
-
-        console.log(formData);
-    };
-
     return (
         <section className={styles.contactSection}>
             <div className={styles.head}>
@@ -64,9 +13,10 @@ export default function Contact() {
                     <span className={styles.image}>
                         <Image
                             src="/chat-bubles.svg"
-                            alt="Chat bubles"
-                            width={64}
-                            height={64}
+                            alt="Chat bubbles"
+                            fill
+                            sizes="(max-width: 768px) 48px, 64px"
+                            className={styles.imageImg}
                         />
                     </span>
                 </div>
@@ -103,117 +53,7 @@ export default function Contact() {
                     </div>
                 </div>
                 <div className={styles.formContainer}>
-                    <form
-                        className={styles.form}
-                        autoComplete="off"
-                        onSubmit={handleSubmit}
-                    >
-                        <div className={styles.names}>
-                            <label
-                                htmlFor="firstName"
-                                className="visuallyHidden"
-                            >
-                                First name
-                            </label>
-                            <input
-                                type="text"
-                                id="firstName"
-                                placeholder="First Name"
-                                className={styles.input}
-                                value={formData.firstName}
-                                onChange={handleChange}
-                            />
-
-                            <label
-                                htmlFor="lastName"
-                                className="visuallyHidden"
-                            >
-                                Last name
-                            </label>
-                            <input
-                                type="text"
-                                id="lastName"
-                                placeholder="Last Name"
-                                className={styles.input}
-                                value={formData.lastName}
-                                onChange={handleChange}
-                            />
-                        </div>
-                        <label
-                            htmlFor="email"
-                            className="visuallyHidden"
-                        >
-                            Email
-                        </label>
-                        <input
-                            type="email"
-                            id="email"
-                            placeholder="Email Address"
-                            className={styles.input}
-                            value={formData.email}
-                            onChange={handleChange}
-                        />
-
-                        <label
-                            htmlFor="phone"
-                            className="visuallyHidden"
-                        >
-                            Phone
-                        </label>
-                        <input
-                            type="tel"
-                            id="phone"
-                            placeholder="Phone"
-                            className={styles.input}
-                            value={formData.phone}
-                            onChange={handleChange}
-                        />
-
-                        <label
-                            htmlFor="plan"
-                            className="visuallyHidden"
-                        >
-                            Select a plan
-                        </label>
-
-                        <select
-                            id="plan"
-                            value={formData.plan}
-                            onChange={handleChange}
-                            className={`${styles.input} ${styles.select}`}
-                            // onChange={(e) => setPlan(e.target.value)}
-                            required
-                        >
-                            <option
-                                value=""
-                                disabled
-                            >
-                                Select a plan
-                            </option>
-                            {plans.map((p) => (
-                                <option
-                                    key={p}
-                                    value={p}
-                                >
-                                    {p}
-                                </option>
-                            ))}
-                        </select>
-
-                        <textarea
-                            name="message"
-                            id="message"
-                            className={`${styles.input} ${styles.textarea}`}
-                            placeholder="Message"
-                            value={formData.message}
-                            onChange={handleChange}
-                        />
-
-                        <Button
-                            text="Submit"
-                            type="submit"
-                        />
-                    </form>
+                    <ContactForm />
 
                     <small className={styles.notate}>
                         We aim to respond to all inquiries within 24 business

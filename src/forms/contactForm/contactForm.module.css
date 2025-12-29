@@ -1,0 +1,26 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+.form > :last-child {
+    width: fit-content;
+}
+
+.names {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+}
+
+@media (max-width: 1024px) {
+    .form > :last-child {
+        align-self: center;
+    }
+
+    .names {
+        flex-direction: column;
+        gap: 32px;
+    }
+}

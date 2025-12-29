@@ -8,10 +8,26 @@ import { navItems } from '@/data/nav';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
 import { useState } from 'react';
 import Modal from '../modal/Modal';
+import { signOutFunc } from '@/actions/sign-out';
+import { useRouter } from 'next/navigation';
+import { useAuthStore } from '@/store/auth.store';
 
 export default function Header() {
     const isTablet = useMediaQuery('(max-width: 768px)');
     const [isOpen, setIsOpen] = useState(false);
+    const router = useRouter();
+
+    const { isAuth, status, session, setAuthState } = useAuthStore();
+
+    const HandleSignOut = async () => {
+        try {
+            await signOutFunc();
+        } catch (error) {
+            console.log('Error:', error);
+        }
+        setAuthState('unauthenticated', null);
+        router.push('/login');
+    };
 
     return (
         <section className={styles.header}>
@@ -44,15 +60,30 @@ export default function Header() {
                     </nav>
 
                     <div className={styles.AuthButtons}>
-                        <Link href="/login">
-                            <Button text="Log In" />
-                        </Link>
-                        <Link href="/register">
-                            <Button
-                                text="Sign Up"
-                                color="blue"
-                            />
-                        </Link>
+                        {isAuth && <p>hello, {session?.user?.email}!</p>}
+                        {status === 'loading' ? (
+                            <p>Loading...</p>
+                        ) : !isAuth ? (
+                            <>
+                                <Link href="/login">
+                                    <Button text="Log In" />
+                                </Link>
+                                <Link href="/register">
+                                    <Button
+                                        text="Sign Up"
+                                        color="blue"
+                                    />
+                                </Link>
+                            </>
+                        ) : (
+                            <>
+                                <Button
+                                    text="Log out"
+                                    color="blue"
+                                    onClick={HandleSignOut}
+                                />
+                            </>
+                        )}
                     </div>
                 </div>
             ) : (

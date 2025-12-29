@@ -1,95 +1,65 @@
 'use client';
 
-import { useState } from 'react';
+import * as React from 'react';
+import { useFormStatus } from 'react-dom';
+import { registerUser, RegisterState } from '@/actions/register';
+
+const initialState: RegisterState = {
+    ok: false,
+};
+
+function SubmitButton() {
+    const { pending } = useFormStatus();
+
+    return (
+        <button type="submit" disabled={pending}>
+            {pending ? 'Регистрация...' : 'Зарегистрироваться'}
+        </button>
+    );
+}
 
 export default function RegisterPage() {
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState<string | null>(null);
-    const [success, setSuccess] = useState(false);
-
-    async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
-        e.preventDefault();
-
-        const form = e.currentTarget;
-
-        setLoading(true);
-        setError(null);
-        setSuccess(false);
-
-        const formData = new FormData(form);
-
-        try {
-            const res = await fetch('/api/register', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    login: formData.get('login'),
-                    password: formData.get('password'),
-                    confirmPassword: formData.get('confirmPassword'),
-                }),
-            });
-
-            const text = await res.text();
-            const data = JSON.parse(text);
-
-            if (!res.ok) {
-                throw new Error(data.error || 'Ошибка регистрации');
-            }
-
-            setSuccess(true);
-            form.reset(); 
-        } catch (err: any) {
-            console.error(err);
-            setError(err.message || 'Ошибка сети');
-        } finally {
-            setLoading(false);
-        }
-    }
+    const [state, formAction] = React.useActionState(
+        registerUser,
+        initialState
+    );
 
     return (
         <div style={{ padding: 24, maxWidth: 400 }}>
             <h1>Регистрация</h1>
 
-            <form onSubmit={onSubmit}>
-                <div>
-                    <input
-                        name="login"
-                        type="email"
-                        placeholder="Email"
-                        required
-                    />
-                </div>
+            <form action={formAction}>
+                <input
+                    name="login"
+                    type="email"
+                    placeholder="Email"
+                    required
+                />
 
-                <div>
-                    <input
-                        name="password"
-                        type="password"
-                        placeholder="Пароль"
-                        required
-                    />
-                </div>
+                <input
+                    name="password"
+                    type="password"
+                    placeholder="Пароль"
+                    required
+                />
 
-                <div>
-                    <input
-                        name="confirmPassword"
-                        type="password"
-                        placeholder="Повторите пароль"
-                        required
-                    />
-                </div>
+                <input
+                    name="confirmPassword"
+                    type="password"
+                    placeholder="Повторите пароль"
+                    required
+                />
 
-                <button
-                    type="submit"
-                    disabled={loading}
-                >
-                    {loading ? 'Регистрация...' : 'Зарегистрироваться'}
-                </button>
+                <SubmitButton />
             </form>
 
-            {error && <p style={{ color: 'red' }}>{error}</p>}
-            {success && <p style={{ color: 'green' }}>Успех 🎉</p>}
+            {state.error && (
+                <p style={{ color: 'red' }}>{state.error}</p>
+            )}
+
+            {state.ok && (
+                <p style={{ color: 'green' }}>Успех 🎉</p>
+            )}
         </div>
     );
 }

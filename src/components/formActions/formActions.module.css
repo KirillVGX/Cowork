@@ -1,0 +1,29 @@
+.input {
+    background: none;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    font-family: var(--font-heading);
+    color: var(--color-light);
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 150%;
+    box-sizing: border-box;
+    padding: 12px;
+    border-bottom: 1px solid var(--color-light);
+    width: 100%;
+}
+
+.input::placeholder {
+    font-family: var(--font-heading);
+    color: hsla(0, 0%, 100%, 0.7);
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 150%;
+}
+
+.textarea {
+    resize: none;
+    min-height: 160px;
+    height: 100%;
+}

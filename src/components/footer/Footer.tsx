@@ -2,6 +2,7 @@ import Image from 'next/image';
 import styles from './footer.module.css';
 import Button from '@/components/button/Button';
 import { tags } from '@/data/tags';
+import Input from '../formActions/input';
 
 export default function Footer() {
     return (
@@ -24,14 +25,8 @@ export default function Footer() {
                         className={styles.form}
                         autoComplete="off"
                     >
-                        <label
-                            htmlFor="email"
-                            className="visuallyHidden"
-                        ></label>
-                        <input
+                        <Input
                             type="email"
-                            id="email"
-                            className={styles.input}
                             placeholder="Enter your email"
                         />
                         <Button text="Subscribe" />
@@ -70,9 +65,30 @@ export default function Footer() {
             <div className={styles.copyrightBlock}>
                 <small>© 2024 Cowork. All rights reserved.</small>
                 <ul className={styles.privacy}>
-                    <li><a href="/" className={styles.undelline}><small>Privacy Policy</small></a></li>
-                    <li><a href="/" className={styles.undelline}><small>Terms of Service</small></a></li>
-                    <li><a href="/" className={styles.undelline}><small>Cookies Settings</small></a></li>
+                    <li>
+                        <a
+                            href="/"
+                            className={styles.undelline}
+                        >
+                            <small>Privacy Policy</small>
+                        </a>
+                    </li>
+                    <li>
+                        <a
+                            href="/"
+                            className={styles.undelline}
+                        >
+                            <small>Terms of Service</small>
+                        </a>
+                    </li>
+                    <li>
+                        <a
+                            href="/"
+                            className={styles.undelline}
+                        >
+                            <small>Cookies Settings</small>
+                        </a>
+                    </li>
                 </ul>
             </div>
         </section>
