@@ -48,7 +48,15 @@ export default function Select({
             ref={ref}
             className={styles.wrapper}
         >
+            <input
+                type="hidden"
+                name={name}
+                value={value}
+                required={isRequired}
+            />
+            
             <button
+                type="button"
                 className={`${inputStyles.input} ${styles.list}`}
                 aria-label={ariaLabel}
                 onClick={() => setIsOpen((prev) => !prev)}

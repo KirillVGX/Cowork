@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import styles from './CTA.module.css';
 import Button from '@/components/button/Button';
+import Link from 'next/link';
 
 export default function CTA() {
     return (
@@ -25,11 +26,14 @@ export default function CTA() {
                 finding a desk; it's discovering a community that fuels your
                 journey to success.
             </p>
-            <Button
-                text="Claim Your Spot"
-                color="red"
-                size="large"
-            />
+
+            <Link href='/pricing'>
+                <Button
+                    text="Claim Your Spot"
+                    color="red"
+                    size="large"
+                />
+            </Link>
         </section>
     );
 }

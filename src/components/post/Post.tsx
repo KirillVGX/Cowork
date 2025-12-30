@@ -69,8 +69,10 @@ export default function Post({
                     </div>
                     <div className={styles.stats}>
                         <small>7 min read</small>
-                        <small className={styles.likes}>👏 287</small>
-                        <small className={styles.comments}>💬 90</small>
+                        <div className={styles.activity}>
+                            <small className={styles.likes}>👏 287</small>
+                            <small className={styles.comments}>💬 90</small>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import styles from './contact.module.css';
-import ContactForm from '@/forms/contactForm/constact.form';
+import ContactForm from '@/forms/contact/contact.form';
 
 export default function Contact() {
     return (

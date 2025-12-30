@@ -21,6 +21,27 @@ model User {
     @@map("users")
 }
 
+enum Plan {
+    HOT
+    DEDICATED
+    PRIVATE
+}
+
+model ContactUs {
+    id        String @id @default(cuid())
+    firstName String
+    lastName  String
+    email     String
+    phone     String
+    plan      Plan
+    message   String?
+
+    createdAt DateTime @default(now()) @map("created_at")
+    updatedAt DateTime @updatedAt @map("updated_at")
+
+    @@map("contactUs")
+}
+
 model Account {
     id                String  @id @default(cuid())
     userId            String  @map("user_id")
@@ -58,4 +79,14 @@ model VerificationToken {
 
     @@unique([identifier, token])
     @@map("verification_tokens")
+}
+
+model Subscribe {
+    id           String   @id @default(cuid())
+    email String @unique
+
+    createdAt DateTime @default(now()) @map("created_at")
+    updatedAt DateTime @updatedAt @map("updated_at")
+
+    @@map("subscribers")
 }

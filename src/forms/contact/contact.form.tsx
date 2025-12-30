@@ -1,11 +1,12 @@
 'use client';
 
-import styles from './contactForm.module.css';
-import { useState } from 'react';
+import styles from './contact.module.css';
+import { ChangeEvent, useActionState, useEffect, useState } from 'react';
 import Button from '@/components/button/Button';
 import Input from '@/components/formActions/input';
 import Textarea from '@/components/formActions/textarea';
 import Select from '@/components/formActions/select';
+import { ContactUser, ContactState } from '@/actions/contactUs';
 
 const initialData = {
     firstName: '',
@@ -16,45 +17,33 @@ const initialData = {
     message: '',
 };
 
+const initialState: ContactState = {
+    ok: false,
+};
+
 export default function ContactForm() {
-    const [plan, setPlan] = useState('');
     const [formData, setFormData] = useState(initialData);
 
+    const [state, formAction] = useActionState(ContactUser, initialState);
+
     const handleChange = (
-        e: React.ChangeEvent<
-            HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
-        >
+        e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
     ) => {
-        const { id, value } = e.target;
-        setFormData((prev) => ({
-            ...prev,
-            [id]: value,
-        }));
+        const { name, value } = e.target;
+        setFormData((p) => ({ ...p, [name]: value }));
     };
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-
-        const data = {
-            ...formData,
-            plan,
-        };
-
-        if (!data.email || !data.plan) {
-            return;
+    useEffect(() => {
+        if (state.ok) {
+            setFormData(initialData);
         }
-
-        setFormData(initialData);
-        setPlan('');
-
-        console.log(formData);
-    };
+    }, [state.ok]);
 
     return (
         <form
             className={styles.form}
             autoComplete="off"
-            onSubmit={handleSubmit}
+            action={formAction}
         >
             <div className={styles.names}>
                 <Input
@@ -94,17 +83,18 @@ export default function ContactForm() {
             <Select
                 value={formData.plan}
                 ariaLabel="Select a plan"
+                name="plan"
                 options={[
                     {
-                        value: '1',
+                        value: 'HOT',
                         label: 'Hot Desk',
                     },
                     {
-                        value: '2',
+                        value: 'DEDICATED',
                         label: 'Dedicated Desk',
                     },
                     {
-                        value: '3',
+                        value: 'PRIVATE',
                         label: 'Private Office',
                     },
                 ]}

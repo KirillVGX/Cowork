@@ -1,0 +1,14 @@
+.post {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 48px;
+    margin-top: 48px;
+}
+
+@media (max-width: 768px) {
+    .post {
+        gap: 12px;
+        margin-top: 0;
+    }
+}

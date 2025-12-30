@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import Arlicle from '@/components/article/Article';
+import Article from '@/components/article/Article';
 import Slider from '@/components/slider/Slider';
 import styles from './catalog.module.css';
 import { articles } from '@/data/articles';
@@ -9,6 +9,7 @@ import Search from '@/components/search/Search';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
 import Modal from '@/components/modal/Modal';
 import Image from 'next/image';
+import { chunkArray } from '@/utils/chunkArray';
 
 const categories = [
     'All',
@@ -27,7 +28,8 @@ export default function Catalog() {
     const isTablet = useMediaQuery('(max-width: 768px)');
     const [isOpen, setIsOpen] = useState(false);
 
-    const allArticles = articles.flat();
+    const allArticles = articles;
+    const slides = chunkArray(articles, 9);
 
     const searchedArticles = allArticles.filter((item) =>
         item.title.toLowerCase().includes(query.toLowerCase())
@@ -86,7 +88,7 @@ export default function Catalog() {
                 <div className={styles.productsGrid}>
                     {searchedArticles.length > 0 ? (
                         searchedArticles.map((article) => (
-                            <Arlicle
+                            <Article
                                 key={article.id}
                                 {...article}
                             />
@@ -97,13 +99,13 @@ export default function Catalog() {
                 </div>
             ) : activeCategory === 'All' ? (
                 <Slider showNumbers>
-                    {articles.map((section, sectionIndex) => (
+                    {slides.map((section, index) => (
                         <div
-                            key={sectionIndex}
+                            key={index}
                             className={styles.productsGrid}
                         >
                             {section.map((article) => (
-                                <Arlicle
+                                <Article
                                     key={article.id}
                                     {...article}
                                 />
@@ -114,7 +116,7 @@ export default function Catalog() {
             ) : (
                 <div className={styles.productsGrid}>
                     {filteredArticles.map((product) => (
-                        <Arlicle
+                        <Article
                             key={product.id}
                             {...product}
                         />

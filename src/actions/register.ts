@@ -6,6 +6,11 @@ import prisma from '@/utils/prisma';
 export type RegisterState = {
     ok: boolean;
     error?: string;
+    fields?: {
+        login?: string;
+        password: string;
+        confirmPassword: string;
+    };
 };
 
 export async function registerUser(
@@ -17,15 +22,27 @@ export async function registerUser(
     const confirmPassword = formData.get('confirmPassword') as string;
 
     if (!login || !password || !confirmPassword) {
-        return { ok: false, error: 'Все поля обязательны' };
+        return {
+            ok: false,
+            error: 'Все поля обязательны',
+            fields: { login, password, confirmPassword },
+        };
     }
 
     if (password !== confirmPassword) {
-        return { ok: false, error: 'Пароли не совпадают' };
+        return {
+            ok: false,
+            error: 'Пароли не совпадают',
+            fields: { login, password, confirmPassword },
+        };
     }
 
     if (password.length < 8) {
-        return { ok: false, error: 'Пароль должен быть минимум 8 символов' };
+        return {
+            ok: false,
+            error: 'Пароль должен быть минимум 8 символов',
+            fields: { login, password, confirmPassword },
+        };
     }
 
     const existingUser = await prisma.user.findUnique({
@@ -33,7 +50,11 @@ export async function registerUser(
     });
 
     if (existingUser) {
-        return { ok: false, error: 'User with such email is existing' };
+        return {
+            ok: false,
+            error: 'User with such email is existing',
+            fields: { login, password, confirmPassword },
+        };
     }
 
     const pwHash = await saltAndHashPassword(password);

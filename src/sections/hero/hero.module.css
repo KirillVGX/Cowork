@@ -123,11 +123,12 @@
 
 @media (max-width: 576px) {
     .title {
-        font-size: 48px;
+        font-size: 32px;
     }
 
     .coworkWrapper::after {
-        height: 71px;
+        height: 49px;
         bottom: -4px;
+        width: 190px;
     }
 }

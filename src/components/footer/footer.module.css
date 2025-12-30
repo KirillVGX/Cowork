@@ -29,12 +29,6 @@
     margin-bottom: 8px;
 }
 
-.form {
-    display: flex;
-    flex-direction: row;
-    gap: 24px;
-}
-
 .tagsContainer {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -125,11 +119,6 @@
 @media (max-width: 576px) {
     .footerMain {
         gap: 40px;
-    }
-
-    .form {
-        flex-direction: column;
-        gap: 16px;
     }
 
     .tagsContainer {

@@ -65,6 +65,7 @@
         justify-content: start;
         height: fit-content;
         gap: 8px;
+        padding-top: 32px 24px;
     }
 
     .title {

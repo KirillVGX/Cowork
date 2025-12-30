@@ -1,6 +1,9 @@
 import { notFound } from 'next/navigation';
 import { articles } from '@/data/articles';
 import Post from '@/components/post/Post';
+import Recommendations from '@/components/recommendations/Recommendations';
+import Button from '@/components/button/Button';
+import styles from './post.module.css';
 
 export default async function Page({
     params,
@@ -13,6 +16,15 @@ export default async function Page({
     if (!article) notFound();
 
     return (
-        <Post title={article.title} />
+        <>
+            <Post title={article.title} />
+            <div className={styles.post}>
+                <Recommendations />
+                <Button
+                    text="View all"
+                    color="blue"
+                />
+            </div>
+        </>
     );
 }

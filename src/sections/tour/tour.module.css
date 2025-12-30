@@ -78,6 +78,9 @@
 }
 
 @media (max-width: 1024px) {
+    .tourSection {
+        padding-top: 48px;
+    }
 
     .explore {
         display: contents;
@@ -108,6 +111,11 @@
 }
 
 @media (max-width: 768px) {
+    .tourSection {
+        padding-top: 24px;
+        gap: 24px;
+    }
+
     .beforeEl::before {
         bottom: 0px;
         right: -56%;

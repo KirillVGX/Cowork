@@ -3,6 +3,7 @@ import styles from './footer.module.css';
 import Button from '@/components/button/Button';
 import { tags } from '@/data/tags';
 import Input from '../formActions/input';
+import SubscribeForm from '@/forms/subscribe/subscribe.form';
 
 export default function Footer() {
     return (
@@ -21,17 +22,7 @@ export default function Footer() {
                         Join our newsletter to stay up to date on features and
                         releases.
                     </small>
-                    <form
-                        className={styles.form}
-                        autoComplete="off"
-                    >
-                        <Input
-                            id="emailFooter"
-                            type="email"
-                            placeholder="Enter your email"
-                        />
-                        <Button text="Subscribe" />
-                    </form>
+                    <SubscribeForm />
                     <small>
                         By subscribing you agree to with our Privacy Policy and
                         provide consent to receive updates from our company.

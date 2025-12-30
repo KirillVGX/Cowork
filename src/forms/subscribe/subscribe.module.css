@@ -1,0 +1,12 @@
+.subscribe {
+    display: flex;
+    flex-direction: row;
+    gap: 24px;
+}
+
+@media (max-width: 576px) {
+    .subscribe {
+        flex-direction: column;
+        gap: 16px;
+    }
+}

@@ -87,7 +87,6 @@
 
     .buttons {
         flex-wrap: wrap;
-        margin-block: 36px;
     }
 }
 
@@ -95,6 +94,7 @@
     .catalogSection {
         width: 65%;
         align-self: center;
+        gap: 24px;
     }
 
     .buttons {
