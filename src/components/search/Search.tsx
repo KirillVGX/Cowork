@@ -4,8 +4,6 @@ import { useState } from 'react';
 import styles from './search.module.css';
 import Image from 'next/image';
 
-interface searchProps {}
-
 export default function Search({
     onSearch,
 }: {

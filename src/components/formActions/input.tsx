@@ -9,6 +9,7 @@ interface InputProps {
     name?: string;
     isRequired?: boolean;
     autoComplete?: string;
+    error?: boolean;
     onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
@@ -16,16 +17,17 @@ export default function Input({
     type = 'text',
     placeholder,
     value,
-    onChange,
     name,
     id,
     autoComplete = 'off',
     isRequired = false,
+    error = false,
+    onChange,
 }: InputProps) {
     return (
         <div className={styles.wrapper}>
             <input
-                className={styles.input}
+                className={`${styles.input} ${error ? styles.error : ''}`}
                 type={type}
                 name={name || id}
                 id={id}
@@ -37,9 +39,7 @@ export default function Input({
 
             <label
                 htmlFor={id}
-                className={`${styles.label} ${
-                    value ? styles.filled : ''
-                }`}
+                className={`${styles.label} ${value ? styles.filled : ''}`}
             >
                 {placeholder}
                 {isRequired && <span className={styles.required}> *</span>}

@@ -7,6 +7,7 @@ export type RegisterState = {
     ok: boolean;
     error?: string;
     fields?: {
+        name?: string;
         login?: string;
         password: string;
         confirmPassword: string;
@@ -17,31 +18,32 @@ export async function registerUser(
     prevState: RegisterState,
     formData: FormData
 ): Promise<RegisterState> {
+    const name = formData.get('name') as string;
     const login = formData.get('login') as string;
     const password = formData.get('password') as string;
     const confirmPassword = formData.get('confirmPassword') as string;
 
-    if (!login || !password || !confirmPassword) {
+    if (!name || !login || !password || !confirmPassword) {
         return {
             ok: false,
-            error: 'Все поля обязательны',
-            fields: { login, password, confirmPassword },
+            error: 'All fields are required',
+            fields: { name, login, password, confirmPassword },
         };
     }
 
     if (password !== confirmPassword) {
         return {
             ok: false,
-            error: 'Пароли не совпадают',
-            fields: { login, password, confirmPassword },
+            error: 'Passwords do not match',
+            fields: { name, login, password, confirmPassword },
         };
     }
 
     if (password.length < 8) {
         return {
             ok: false,
-            error: 'Пароль должен быть минимум 8 символов',
-            fields: { login, password, confirmPassword },
+            error: 'Password must be at least 8 characters',
+            fields: { name, login, password, confirmPassword },
         };
     }
 
@@ -52,8 +54,8 @@ export async function registerUser(
     if (existingUser) {
         return {
             ok: false,
-            error: 'User with such email is existing',
-            fields: { login, password, confirmPassword },
+            error: 'User with this email already exists',
+            fields: { name, login, password, confirmPassword },
         };
     }
 
@@ -61,6 +63,7 @@ export async function registerUser(
 
     await prisma.user.create({
         data: {
+            name,
             email: login.toLowerCase(),
             password: pwHash,
         },
@@ -68,3 +71,4 @@ export async function registerUser(
 
     return { ok: true };
 }
+

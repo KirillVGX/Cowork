@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import inputStyles from './formActions.module.css';
-import styles from './dropdown.module.css'
+import styles from './dropdown.module.css';
 import { use, useEffect, useRef, useState } from 'react';
 
 interface Option {
@@ -16,16 +16,18 @@ interface SelectProps {
     name?: string;
     isRequired?: boolean;
     ariaLabel: string;
+    error: boolean;
     onChange: (value: string) => void;
 }
 
 export default function Select({
     value,
     options,
-    onChange,
     name,
     isRequired = true,
     ariaLabel,
+    error = false,
+    onChange,
 }: SelectProps) {
     const [isOpen, setIsOpen] = useState(false);
     const ref = useRef<HTMLDivElement>(null);
@@ -54,10 +56,12 @@ export default function Select({
                 value={value}
                 required={isRequired}
             />
-            
+
             <button
                 type="button"
-                className={`${inputStyles.input} ${styles.list}`}
+                className={`${inputStyles.input} ${styles.list} ${
+                    error ? styles.error : ''
+                }`}
                 aria-label={ariaLabel}
                 onClick={() => setIsOpen((prev) => !prev)}
             >

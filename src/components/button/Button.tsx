@@ -6,6 +6,7 @@ type ButtonProps = {
     size?: 'small' | 'large';
     style?: object;
     type?: "button" | "submit" | "reset" | undefined;
+    disabled?: boolean;
     onClick?: () => void;
 };
 
@@ -15,14 +16,16 @@ export default function Button({
     size = 'small',
     style,
     type = 'button',
+    disabled = false,
     onClick,
 }: ButtonProps) {
     return (
         <button
             className={`${styles.button} ${styles[color]} ${styles[size]}`}
             style={style}
-            onClick={onClick}
             type={type}
+            disabled={disabled}
+            onClick={onClick}
         >
             {text}
         </button>

@@ -1,59 +1,79 @@
 'use client';
 
-import Input from '@/components/formActions/input';
 import styles from './subscribe.module.css';
-import Button from '@/components/button/Button';
-import { useActionState, useEffect, useState } from 'react';
-import { emailFooterUser, EmailFooterState } from '@/actions/subscribe';
-import Toast from '@/components/toast/Toast';
+import { Formik, Form } from 'formik';
+import { toFormikValidationSchema } from 'zod-formik-adapter';
+import { subscribeSchema, SubscribeFormData } from '@/schema/subscribe';
+import { emailFooterUser } from '@/actions/subscribe';
+import { useState } from 'react';
 
-const initialState: EmailFooterState = {
-    ok: false,
+import Button from '@/components/button/Button';
+import Toast from '@/components/toast/Toast';
+import FormikInput from '@/components/formikActions/FormikInput';
+
+const initialValues: SubscribeFormData = {
+    emailFooter: '',
 };
 
 export default function SubscribeForm() {
-    const [state, formAction] = useActionState(emailFooterUser, initialState);
-    const [email, setEmail] = useState('');
     const [showToast, setShowToast] = useState(false);
-
-    useEffect(() => {
-        if (!state.submittedAt) return;
-
-        if (state.ok) {
-            setEmail('');
-            setShowToast(true);
-
-            const timer = setTimeout(() => {
-                setShowToast(false);
-            }, 3000);
-
-            return () => clearTimeout(timer);
-        }
-    }, [state.submittedAt]);
+    const [serverError, setServerError] = useState<string | null>(null);
 
     return (
         <>
-            <form
-                className={styles.subscribe}
-                action={formAction}
-            >
-                <Input
-                    id="emailFooter"
-                    name="emailFooter"
-                    type="email"
-                    placeholder="Enter your email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                />
+            <Formik
+                initialValues={initialValues}
+                validationSchema={toFormikValidationSchema(subscribeSchema)}
+                onSubmit={async (values, { resetForm, setSubmitting }) => {
+                    setServerError(null);
 
-                <Button
-                    text="Subscribe"
-                    type="submit"
-                />
-            </form>
+                    const formData = new FormData();
+                    formData.append('emailFooter', values.emailFooter);
+
+                    const result = await emailFooterUser(
+                        { ok: false },
+                        formData
+                    );
+
+                    setSubmitting(false);
+
+                    if (result.ok) {
+                        resetForm();
+                        setShowToast(true);
+                        setTimeout(() => setShowToast(false), 3000);
+                    } else {
+                        setServerError(result.error ?? 'Error');
+                    }
+                }}
+            >
+                {({ isSubmitting }) => (
+                    <Form
+                        className={styles.subscribe}
+                        noValidate
+                    >
+                        <FormikInput
+                            name="emailFooter"
+                            type="email"
+                            placeholder="Enter your email"
+                        />
+
+                        <Button
+                            type="submit"
+                            text="Subscribe"
+                            disabled={isSubmitting}
+                        />
+                    </Form>
+                )}
+            </Formik>
+
             <Toast
                 show={showToast}
                 text="Successfully subscribed 🎉"
+            />
+
+            <Toast
+                show={!!serverError}
+                text={serverError ?? ''}
             />
         </>
     );

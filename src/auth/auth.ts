@@ -3,7 +3,7 @@ import { PrismaAdapter } from '@auth/prisma-adapter';
 import Credentials from 'next-auth/providers/credentials';
 import bcrypt from 'bcryptjs';
 import { ZodError } from 'zod';
-import { signInSchema } from '@/schema/zod';
+import { signInSchema } from '@/schema/login';
 import { getUserFromDb } from '@/utils/user';
 import { prisma } from '@/utils/prisma';
 
@@ -31,7 +31,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
                     return {
                         id: user.id,
                         email: user.email,
-                        name: user.email,
+                        name: user.name,
                     };
                 } catch (error) {
                     if (error instanceof ZodError) return null;

@@ -1,16 +1,15 @@
 'use client';
 
-import Button from '@/components/button/Button';
-import styles from './header.module.css';
-import Image from 'next/image';
-import Link from 'next/link';
-import { navItems } from '@/data/nav';
-import { useMediaQuery } from '@/hooks/useMediaQuery';
 import { useState } from 'react';
-import Modal from '../modal/Modal';
-import { signOutFunc } from '@/actions/sign-out';
 import { useRouter } from 'next/navigation';
+
+import styles from './header.module.css';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
+import { signOutFunc } from '@/actions/sign-out';
 import { useAuthStore } from '@/store/auth.store';
+import { Logo } from './Logo';
+import { MobileMenu } from './MobileMenu';
+import { DesktopMenu } from './DesktopMenu';
 
 export default function Header() {
     const isTablet = useMediaQuery('(max-width: 768px)');
@@ -19,141 +18,38 @@ export default function Header() {
 
     const { isAuth, status, session, setAuthState } = useAuthStore();
 
-    const HandleSignOut = async () => {
+    const handleSignOut = async () => {
         try {
             await signOutFunc();
+            setAuthState('unauthenticated', null);
+            router.push('/login');
         } catch (error) {
-            console.log('Error:', error);
+            console.error('Sign out error:', error);
         }
-        setAuthState('unauthenticated', null);
-        router.push('/login');
     };
+
+    const closeModal = () => setIsOpen(false);
+
+    console.log(session?.user);
 
     return (
         <section className={styles.header}>
-            <Link href="/">
-                <Image
-                    className={styles.logo}
-                    src="/logo.svg"
-                    alt="Site logo"
-                    width={120}
-                    height={24}
-                    priority
+            <Logo />
+
+            {isTablet ? (
+                <MobileMenu
+                    isOpen={isOpen}
+                    onOpen={() => setIsOpen(true)}
+                    onClose={closeModal}
                 />
-            </Link>
-
-            {!isTablet ? (
-                <div className={styles.actions}>
-                    <nav className={styles.nav}>
-                        <ul className={styles.navMenu}>
-                            {navItems.map(({ href, label }) => (
-                                <li
-                                    key={href}
-                                    className={styles.navItem}
-                                >
-                                    <Link href={href}>
-                                        <p>{label}</p>
-                                    </Link>
-                                </li>
-                            ))}
-                        </ul>
-                    </nav>
-
-                    <div className={styles.AuthButtons}>
-                        {isAuth && <p>hello, {session?.user?.email}!</p>}
-                        {status === 'loading' ? (
-                            <p>Loading...</p>
-                        ) : !isAuth ? (
-                            <>
-                                <Link href="/login">
-                                    <Button text="Log In" />
-                                </Link>
-                                <Link href="/register">
-                                    <Button
-                                        text="Sign Up"
-                                        color="blue"
-                                    />
-                                </Link>
-                            </>
-                        ) : (
-                            <>
-                                <Button
-                                    text="Log out"
-                                    color="blue"
-                                    onClick={HandleSignOut}
-                                />
-                            </>
-                        )}
-                    </div>
-                </div>
             ) : (
-                <>
-                    <button
-                        className={styles.burgerBtn}
-                        onClick={() => setIsOpen(true)}
-                        aria-label="Open menu"
-                    >
-                        <Image
-                            src="/burger-icon.svg"
-                            alt="Navigation menu"
-                            width={32}
-                            height={32}
-                            priority
-                            className={styles.burgerIcon}
-                        />
-                    </button>
-                </>
+                <DesktopMenu
+                    isAuth={isAuth}
+                    status={status}
+                    name={session?.user?.name}
+                    onSignOut={handleSignOut}
+                />
             )}
-
-            <Modal
-                isOpen={isOpen}
-                onClose={() => setIsOpen(false)}
-            >
-                <div className={styles.actions}>
-                    <nav className={styles.nav}>
-                        <ul className={styles.navMenu}>
-                            <li
-                                className={styles.navItem}
-                                style={{ marginBlock: '32px 18px' }}
-                            >
-                                <Link
-                                    href="/"
-                                    onClick={() => setIsOpen(false)}
-                                >
-                                    <Image
-                                        className={styles.logo}
-                                        src="/logo-light.svg"
-                                        alt="Site logo"
-                                        width={99}
-                                        height={20}
-                                    />
-                                </Link>
-                            </li>
-                            {navItems.map(({ href, label }) => (
-                                <li
-                                    key={href}
-                                    className={styles.navItem}
-                                >
-                                    <Link
-                                        href={href}
-                                        onClick={() => setIsOpen(false)}
-                                    >
-                                        <p>{label}</p>
-                                    </Link>
-                                </li>
-                            ))}
-                        </ul>
-                    </nav>
-
-                    <div className={styles.AuthButtons}>
-                        <Button text="Log In" />
-                        <Button
-                            text="Sign Up"
-                            color="blue"
-                        />
-                    </div>
-                </div>
-            </Modal>
         </section>
     );
 }

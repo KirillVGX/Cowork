@@ -1,6 +1,7 @@
 'use server';
 
 import prisma from '@/utils/prisma';
+import { subscribeSchema } from '@/schema/subscribe';
 
 export type EmailFooterState = {
     ok: boolean;
@@ -12,30 +13,34 @@ export async function emailFooterUser(
     prevState: EmailFooterState,
     formData: FormData
 ): Promise<EmailFooterState> {
-    const emailFooter = formData.get('emailFooter') as string;
+    const rawData = {
+        emailFooter: formData.get('emailFooter'),
+    };
 
-    if (!emailFooter) {
+    const parsed = subscribeSchema.safeParse(rawData);
+
+    if (!parsed.success) {
         return {
             ok: false,
-            error: 'Все поля обязательны',
+            error: 'Invalid email',
         };
     }
 
+    const email = parsed.data.emailFooter.toLowerCase();
+
     const existingUser = await prisma.subscribe.findUnique({
-        where: { email: emailFooter },
+        where: { email },
     });
 
     if (existingUser) {
         return {
             ok: false,
-            error: 'User with such email is existing',
+            error: 'User with such email already exists',
         };
     }
 
     await prisma.subscribe.create({
-        data: {
-            email: emailFooter.toLowerCase(),
-        },
+        data: { email },
     });
 
     return {

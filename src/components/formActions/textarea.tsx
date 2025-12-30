@@ -7,22 +7,24 @@ interface TextareaProps {
     name?: string;
     id: string;
     required?: boolean;
+    error: boolean;
     onChange: (e: ChangeEvent<HTMLTextAreaElement>) => void;
 }
 
 export default function Textarea({
     placeholder,
     value,
-    onChange,
     name,
     id,
     required = false,
+    error = false,
+    onChange,
 }: TextareaProps) {
     return (
         <textarea
             className={`${styles.input} ${styles.textarea} ${
-                required ? styles.required : ''
-            }`}
+                error ? styles.error : ''
+            } `}
             name={name || id}
             placeholder={placeholder}
             value={value}

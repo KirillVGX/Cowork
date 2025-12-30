@@ -1,14 +1,19 @@
 'use client';
 
 import styles from './contact.module.css';
-import { ChangeEvent, useActionState, useEffect, useState } from 'react';
-import Button from '@/components/button/Button';
-import Input from '@/components/formActions/input';
-import Textarea from '@/components/formActions/textarea';
-import Select from '@/components/formActions/select';
-import { ContactUser, ContactState } from '@/actions/contactUs';
+import { Formik, Form } from 'formik';
+import { toFormikValidationSchema } from 'zod-formik-adapter';
+import { contactSchema, ContactFormData } from '@/schema/contact';
+import { ContactUser } from '@/actions/contactUs';
+import { useState } from 'react';
 
-const initialData = {
+import Button from '@/components/button/Button';
+import Toast from '@/components/toast/Toast';
+import FormikInput from '@/components/formikActions/FormikInput';
+import FormikSelect from '@/components/formikActions/FormikSelect';
+import FormikTextarea from '@/components/formikActions/FormikTextarea';
+
+const initialValues: ContactFormData = {
     firstName: '',
     lastName: '',
     email: '',
@@ -17,101 +22,94 @@ const initialData = {
     message: '',
 };
 
-const initialState: ContactState = {
-    ok: false,
-};
-
 export default function ContactForm() {
-    const [formData, setFormData] = useState(initialData);
-
-    const [state, formAction] = useActionState(ContactUser, initialState);
-
-    const handleChange = (
-        e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-    ) => {
-        const { name, value } = e.target;
-        setFormData((p) => ({ ...p, [name]: value }));
-    };
-
-    useEffect(() => {
-        if (state.ok) {
-            setFormData(initialData);
-        }
-    }, [state.ok]);
+    const [showToast, setShowToast] = useState(false);
 
     return (
-        <form
-            className={styles.form}
-            autoComplete="off"
-            action={formAction}
-        >
-            <div className={styles.names}>
-                <Input
-                    id="firstName"
-                    placeholder="First Name"
-                    value={formData.firstName}
-                    onChange={handleChange}
-                    isRequired
-                />
+        <>
+            <Formik
+                initialValues={initialValues}
+                validationSchema={toFormikValidationSchema(contactSchema)}
+                onSubmit={async (values, { resetForm, setSubmitting }) => {
+                    const formData = new FormData();
 
-                <Input
-                    id="lastName"
-                    placeholder="Last Name"
-                    value={formData.lastName}
-                    onChange={handleChange}
-                    isRequired
-                />
-            </div>
-            <Input
-                type="email"
-                id="email"
-                placeholder="Email Address"
-                value={formData.email}
-                onChange={handleChange}
-                isRequired
-            />
+                    Object.entries(values).forEach(([key, value]) => {
+                        formData.append(key, value ?? '');
+                    });
 
-            <Input
-                id="phone"
-                type="tel"
-                placeholder="Phone"
-                value={formData.phone}
-                onChange={handleChange}
-                isRequired
-            />
+                    const result = await ContactUser(
+                        { ok: false },
+                        formData
+                    );
 
-            <Select
-                value={formData.plan}
-                ariaLabel="Select a plan"
-                name="plan"
-                options={[
-                    {
-                        value: 'HOT',
-                        label: 'Hot Desk',
-                    },
-                    {
-                        value: 'DEDICATED',
-                        label: 'Dedicated Desk',
-                    },
-                    {
-                        value: 'PRIVATE',
-                        label: 'Private Office',
-                    },
-                ]}
-                onChange={(val) => setFormData((p) => ({ ...p, plan: val }))}
-            />
+                    setSubmitting(false);
 
-            <Textarea
-                placeholder="Message"
-                id="message"
-                value={formData.message}
-                onChange={handleChange}
-            />
+                    if (result.ok) {
+                        resetForm();
+                        setShowToast(true);
+                        setTimeout(() => setShowToast(false), 3000);
+                    }
+                }}
+            >
+                <Form
+                    className={styles.form}
+                    autoComplete="off"
+                    noValidate
+                >
+                    <div className={styles.names}>
+                        <FormikInput
+                            name="firstName"
+                            placeholder="First Name"
+                            isRequired
+                        />
 
-            <Button
-                text="Submit"
-                type="submit"
+                        <FormikInput
+                            name="lastName"
+                            placeholder="Last Name"
+                            isRequired
+                        />
+                    </div>
+
+                    <FormikInput
+                        name="email"
+                        type="email"
+                        placeholder="Email Address"
+                        isRequired
+                    />
+
+                    <FormikInput
+                        name="phone"
+                        type="tel"
+                        placeholder="Phone"
+                        isRequired
+                    />
+
+                    <FormikSelect
+                        name="plan"
+                        ariaLabel="Select a plan"
+                        options={[
+                            { value: 'HOT', label: 'Hot Desk' },
+                            { value: 'DEDICATED', label: 'Dedicated Desk' },
+                            { value: 'PRIVATE', label: 'Private Office' },
+                        ]}
+                    />
+
+                    <FormikTextarea
+                        name="message"
+                        placeholder="Message"
+                    />
+
+                    <Button
+                        type="submit"
+                        text="Submit"
+                    />
+                </Form>
+            </Formik>
+
+            <Toast
+                show={showToast}
+                text="Successfully subscribed 🎉"
             />
-        </form>
+        </>
     );
 }

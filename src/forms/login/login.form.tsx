@@ -1,62 +1,105 @@
 'use client';
 
 import styles from './login.module.css';
-import { useEffect, useActionState } from 'react';
-import { useFormStatus } from 'react-dom';
+import { Formik, Form, Field } from 'formik';
+import { toFormikValidationSchema } from 'zod-formik-adapter';
+import { signInSchema, SignInFormData } from '@/schema/login';
+import { signInWithCredentials } from '@/actions/sign-in';
 import { useRouter } from 'next/navigation';
-import { signInWithCredentials, LoginState } from '@/actions/sign-in';
-import { getSession } from 'next-auth/react';
+import { useState } from 'react';
+import Toast from '@/components/toast/Toast';
+import Button from '@/components/button/Button';
 
-const initialState: LoginState = {
-    ok: false,
+const initialValues: SignInFormData = {
+    email: '',
+    password: '',
 };
 
-function SubmitButton() {
-    const { pending } = useFormStatus();
-
-    return (
-        <button
-            type="submit"
-            disabled={pending}
-        >
-            {pending ? 'Вход...' : 'Войти'}
-        </button>
-    );
-}
-
 export default function LoginForm() {
-    const [state, formAction] = useActionState(
-        signInWithCredentials,
-        initialState
-    );
-
     const router = useRouter();
-
-    useEffect(() => {
-        if (state.ok) {
-            getSession();
-            router.push('/');
-        }
-    }, [state.ok]);
+    const [showSuccessToast, setShowSuccessToast] = useState(false);
+    const [showErrorToast, setShowErrorToast] = useState(false);
 
     return (
-        <form action={formAction}>
-            <input
-                name="email"
-                type="email"
-                placeholder="Email"
+        <>
+            <Formik
+                initialValues={initialValues}
+                validationSchema={toFormikValidationSchema(signInSchema)}
+                onSubmit={async (values, { setSubmitting }) => {
+                    const formData = new FormData();
+
+                    Object.entries(values).forEach(([key, value]) => {
+                        formData.append(key, value);
+                    });
+
+                    const result = await signInWithCredentials(
+                        { ok: false },
+                        formData
+                    );
+
+                    setSubmitting(false);
+
+                    if (result.ok) {
+                        setShowSuccessToast(true);
+                        setTimeout(() => {
+                            setShowSuccessToast(false);
+                            router.push('/');
+                        }, 1500);
+                    } else {
+                        setShowErrorToast(true);
+                        setTimeout(() => {
+                            setShowErrorToast(false);
+                        }, 3000);
+                    }
+                }}
+            >
+                {({ errors, submitCount, isSubmitting }) => (
+                    <Form
+                        className={styles.login}
+                        noValidate
+                        autoComplete="off"
+                    >
+                        <Field
+                            name="email"
+                            type="email"
+                            placeholder="Email"
+                            className={`${styles.input} ${
+                                errors.email && submitCount > 0
+                                    ? styles.error
+                                    : ''
+                            }`}
+                        />
+
+                        <Field
+                            name="password"
+                            type="password"
+                            placeholder="Password"
+                            className={`${styles.input} ${
+                                errors.password && submitCount > 0
+                                    ? styles.error
+                                    : ''
+                            }`}
+                        />
+
+                        <Button
+                            type="submit"
+                            text="Log In"
+                            color='blue'
+                            disabled={isSubmitting}
+                        />
+                    </Form>
+                )}
+            </Formik>
+
+            <Toast
+                show={showSuccessToast}
+                text="Вы успешно вошли ✅"
             />
 
-            <input
-                name="password"
-                type="password"
-                placeholder="Пароль"
+            <Toast
+                show={showErrorToast}
+                text="Неверный email или пароль"
             />
-
-            <SubmitButton />
-            {state.error && <p style={{ color: 'red' }}>{state.error}</p>}
-
-            {state.ok && <p style={{ color: 'green' }}>Вы вошли ✅</p>}
-        </form>
+        </>
     );
 }

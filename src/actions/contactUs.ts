@@ -2,9 +2,11 @@
 
 import prisma from '@/utils/prisma';
 import { Plan } from '@prisma/client';
+import { contactSchema } from '@/schema/contact';
 
 export type ContactState = {
     ok: boolean;
+    submittedAt?: number;
     error?: string;
 };
 
@@ -12,29 +14,25 @@ export async function ContactUser(
     prevState: ContactState,
     formData: FormData
 ): Promise<ContactState> {
-    const firstName = formData.get('firstName') as string;
-    const lastName = formData.get('lastName') as string;
-    const email = formData.get('email') as string;
-    const phone = formData.get('phone') as string;
-    const message = formData.get('message') as string | null;
+    const rawData = {
+        firstName: formData.get('firstName'),
+        lastName: formData.get('lastName'),
+        email: formData.get('email'),
+        phone: formData.get('phone'),
+        plan: formData.get('plan'),
+        message: formData.get('message'),
+    };
 
-    const PLANS = ['HOT', 'DEDICATED', 'PRIVATE'] as const;
-    type PlanValue = (typeof PLANS)[number];
+    const parsed = contactSchema.safeParse(rawData);
 
-    const planValue = formData.get('plan');
-
-    if (!planValue || !PLANS.includes(planValue as PlanValue)) {
-        return { ok: false, error: 'Неверный тариф' };
-    }
-
-    const plan = planValue as Plan;
-
-    if (!firstName || !lastName || !email || !phone || !plan) {
+    if (!parsed.success) {
         return {
             ok: false,
-            error: 'Заполните все обязательные поля',
+            error: 'Некорректные данные',
         };
     }
+
+    const { firstName, lastName, email, phone, plan, message } = parsed.data;
 
     await prisma.contactUs.create({
         data: {
@@ -42,10 +40,13 @@ export async function ContactUser(
             lastName,
             email: email.toLowerCase(),
             phone,
-            plan,
+            plan: plan as Plan,
             message: message || null,
         },
     });
 
-    return { ok: true };
+    return {
+        ok: true,
+        submittedAt: Date.now(),
+    };
 }
