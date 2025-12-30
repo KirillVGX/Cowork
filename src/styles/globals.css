@@ -8,6 +8,7 @@
     --color-yellow: hsla(51, 100%, 93%, 1);
 
     --border-radius-large: 32px;
+    --margin-block: 48px;
 }
 
 * {
@@ -132,6 +133,10 @@ small {
 }
 
 @media (max-width: 768px) {
+    :root {
+        --margin-block: 24px;
+    }
+    
     h1 {
         font-size: 48px;
         line-height: 120%;

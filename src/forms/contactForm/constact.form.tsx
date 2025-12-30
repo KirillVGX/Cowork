@@ -1,4 +1,4 @@
-"use client"
+'use client';
 
 import styles from './contactForm.module.css';
 import { useState } from 'react';
@@ -58,29 +58,37 @@ export default function ContactForm() {
         >
             <div className={styles.names}>
                 <Input
+                    id="firstName"
                     placeholder="First Name"
                     value={formData.firstName}
                     onChange={handleChange}
+                    isRequired
                 />
 
                 <Input
+                    id="lastName"
                     placeholder="Last Name"
                     value={formData.lastName}
                     onChange={handleChange}
+                    isRequired
                 />
             </div>
             <Input
                 type="email"
+                id="email"
                 placeholder="Email Address"
                 value={formData.email}
                 onChange={handleChange}
+                isRequired
             />
 
             <Input
+                id="phone"
                 type="tel"
                 placeholder="Phone"
                 value={formData.phone}
                 onChange={handleChange}
+                isRequired
             />
 
             <Select
@@ -105,6 +113,7 @@ export default function ContactForm() {
 
             <Textarea
                 placeholder="Message"
+                id="message"
                 value={formData.message}
                 onChange={handleChange}
             />

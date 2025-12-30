@@ -6,7 +6,7 @@
     background-color: var(--color-dark);
     border-radius: var(--border-radius-large);
     padding: 72px 32px 48px 32px;
-    margin-top: 72px;
+    margin-block: var(--margin-block);
     height: 640px;
 }
 
@@ -54,9 +54,6 @@
 }
 
 @media (max-width: 1024px) {
-    .recentPostSection {
-        margin-top: 36px;
-    }
 
     .title {
         font-size: 80px;

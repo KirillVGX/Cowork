@@ -5,7 +5,7 @@
     padding-top: 72px;
     border-radius: var(--border-radius-large);
     gap: 32px;
-    margin-block: 72px;
+    margin-block: var(--margin-block);
 }
 
 .explore {
@@ -78,9 +78,6 @@
 }
 
 @media (max-width: 1024px) {
-    .tourSection {
-        margin-block: 24px;
-    }
 
     .explore {
         display: contents;
@@ -110,7 +107,7 @@
     }
 }
 
-@media (max-width: 390px) {
+@media (max-width: 768px) {
     .beforeEl::before {
         bottom: 0px;
         right: -56%;

@@ -1,11 +1,11 @@
 .plansSection {
     display: flex;
     flex-direction: column;
-    margin-block: 72px;
+    margin-block: var(--margin-block);
     border-radius: var(--border-radius-large);
     background-color: var(--color-dark);
     color: var(--color-light);
-    padding: 72px 32px 48px 32px;
+    padding: 72px 32px;
 }
 
 .pricing {
@@ -157,7 +157,6 @@
 @media (max-width: 1024px) {
     .plansSection {
         padding: 24px;
-        margin-block: 24px;
     }
 
     .pricing {

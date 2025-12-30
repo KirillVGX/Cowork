@@ -4,7 +4,7 @@
 
     display: flex;
     gap: 16px;
-    padding-bottom: 72px;
+    padding-block: var(--margin-block);
     align-items: stretch;
 
     min-height: --base-height;
@@ -85,7 +85,6 @@
 @media (max-width: 1024px) {
     .FAQsection {
         flex-direction: column;
-        padding-block: 36px;
         gap: 32px;
     }
 

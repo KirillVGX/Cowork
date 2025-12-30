@@ -26,6 +26,7 @@ export default function Footer() {
                         autoComplete="off"
                     >
                         <Input
+                            id="emailFooter"
                             type="email"
                             placeholder="Enter your email"
                         />

@@ -1,5 +1,5 @@
 .reviewsSection {
-    margin-block: 72px;
+    margin-block: var(--margin-block);
     padding: 72px 32px;
     background-color: var(--color-dark);
     color: var(--color-light);
@@ -110,9 +110,6 @@
 }
 
 @media (max-width: 1024px) {
-    .reviewsSection {
-        margin-block: 36px;
-    }
 
     .reviews {
         gap: 48px;

@@ -4,7 +4,7 @@
     background-color: var(--color-dark);
     border-radius: var(--border-radius-large);
     color: var(--color-light);
-    margin-block: 48px 72px;
+    margin-block: var(--margin-block);
     padding: 72px 32px 48px 32px;
     gap: 64px;
 }
@@ -118,7 +118,6 @@
 @media (max-width: 768px) {
     .ourSection {
         gap: 0;
-        margin-block: 24px;
     }
 
     .titleBlock {

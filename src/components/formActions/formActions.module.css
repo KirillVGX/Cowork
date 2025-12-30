@@ -1,3 +1,8 @@
+.wrapper {
+    position: relative;
+    width: 100%;
+}
+
 .input {
     background: none;
     border: none;
@@ -14,16 +19,35 @@
     width: 100%;
 }
 
-.input::placeholder {
+.textarea {
+    resize: none;
+    min-height: 160px;
+    height: 100%;
+}
+
+.label {
+    position: absolute;
+    left: 12px;
+    top: 16px;
+
     font-family: var(--font-heading);
     color: hsla(0, 0%, 100%, 0.7);
     font-weight: 500;
     font-size: 16px;
     line-height: 150%;
+
+    pointer-events: none;
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
-.textarea {
-    resize: none;
-    min-height: 160px;
-    height: 100%;
+.input:focus + .label,
+.filled {
+    opacity: 0;
+    transform: translateY(-4px);
+}
+
+.required {
+    color: #ff4d4f;
 }

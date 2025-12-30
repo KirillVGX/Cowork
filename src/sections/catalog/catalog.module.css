@@ -1,3 +1,10 @@
+.catalogSection {
+    margin-block: var(--margin-block);
+    gap: 72px;
+    display: flex;
+    flex-direction: column;
+}
+
 .productsGrid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -17,7 +24,6 @@
     flex-direction: row;
     justify-content: center;
     gap: 10px 24px;
-    margin-block: 72px;
 }
 
 .button {
@@ -94,7 +100,6 @@
     .buttons {
         gap: 8px;
         width: 95%;
-        /* align-items: center; */
         margin-inline: auto;
         justify-content: space-between;
         flex-wrap: nowrap;

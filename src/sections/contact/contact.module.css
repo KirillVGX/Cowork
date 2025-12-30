@@ -4,7 +4,7 @@
     background-color: var(--color-dark);
     color: var(--color-light);
     border-radius: var(--border-radius-large);
-    margin-block: 72px;
+    margin-block: var(--margin-block);
     padding: 72px 32px 48px 32px;
     gap: 64px;
 }
@@ -25,7 +25,7 @@
 }
 
 .image {
-    position: relative;  
+    position: relative;
     width: 64px;
     height: 64px;
     display: inline-block;
@@ -33,7 +33,7 @@
 }
 
 .imageImg {
-    object-fit: contain; 
+    object-fit: contain;
 }
 
 .quote {
@@ -111,6 +111,10 @@
 }
 
 @media (max-width: 768px) {
+    .contactSection {
+        padding: 24px;
+        gap: 48px;
+    }
     .image {
         width: 48px;
         height: 48px;
@@ -129,10 +133,14 @@
 }
 
 @media (max-width: 390px) {
+    .title {
+        gap: 8px;
+    }
+
     .image {
         width: 28px;
         height: 28px;
-        margin-bottom: 0;
+        margin-bottom: 4px;
     }
 
     .title h1 {

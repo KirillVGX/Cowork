@@ -5,7 +5,7 @@
     background-color: var(--color-dark);
     border-radius: var(--border-radius-large);
     color: var(--color-light);
-    /* margin-block: 72px; */
+    margin-block: var(--margin-block);
     padding: 72px 32px;
 }
 
@@ -33,7 +33,6 @@
 @media (max-width: 768px) {
     .CTAsection {
         padding: 24px;
-        margin-block: 0px;
     }
 
     .CTAsection > :last-child {
