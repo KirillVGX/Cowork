@@ -36,12 +36,12 @@ export default function Hero() {
             <div className={styles.img}>
                 {!isMobile ? (
                     <Image
-                        className={styles.backImage}
                         src="/image.jpg"
                         alt="Mens in cafe with laptop"
                         width={460}
                         height={642}
                         priority
+                        className={styles.backImage}
                     />
                 ) : (
                     <Image
