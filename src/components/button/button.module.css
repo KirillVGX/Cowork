@@ -24,29 +24,12 @@
     background-color: var(--color-light);
 }
 
-.null:hover:not(:disabled) {
-    background-color: var(--color-hover-light);
-    border-color: var(--color-blue);
-    color: var(--color-blue);
-    box-shadow: 0 6px 16px rgba(67, 74, 255, 0.12);
-}
-
 .blue {
     background: var(--color-blue);
 }
 
-.blue:hover:not(:disabled) {
-    background: hsla(238, 96%, 54%, 1);
-    box-shadow: 0 0 20px 10px rgba(67, 74, 255, 0.45);
-}
-
 .red {
     background: hsla(0, 100%, 60%, 1);
-}
-
-.red:hover:not(:disabled) {
-    background: hsla(0, 80%, 42%, 1);
-    box-shadow: 0 12px 32px rgba(180, 20, 20, 0.45);
 }
 
 /* sizes */
@@ -61,6 +44,37 @@
     font-weight: 700;
     font-size: 20px;
     letter-spacing: 0%;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .null:hover:not(:disabled) {
+        background-color: var(--color-hover-light);
+        border-color: var(--color-blue);
+        color: var(--color-blue);
+        box-shadow: 0 6px 16px rgba(67, 74, 255, 0.12);
+    }
+
+    .blue:hover:not(:disabled) {
+        background: hsla(238, 96%, 54%, 1);
+        box-shadow: 0 0 20px 10px rgba(67, 74, 255, 0.45);
+    }
+
+    .red:hover:not(:disabled) {
+        background: hsla(0, 80%, 42%, 1);
+        box-shadow: 0 12px 32px rgba(180, 20, 20, 0.45);
+    }
+}
+
+@media (max-width: 1024px) {
+    .small {
+        padding-inline: 10px;
+    }
+}
+
+@media (max-width: 768px) {
+    .small {
+        padding-inline: 24px;
+    }
 }
 
 @media (max-width: 360px) {

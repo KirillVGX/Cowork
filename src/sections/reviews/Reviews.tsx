@@ -5,9 +5,23 @@ import styles from './reviews.module.css';
 import { reviews } from '@/data/reviews';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
 import ScrollbarSwiper from '@/components/scrollbar/Scrollbar';
+import { ReviewCard } from '@/components/reviewCard/ReviewCard';
 
 export default function Reviews() {
-    const isTablet = useMediaQuery('(max-width: 768px)');
+    const isMobile = useMediaQuery('(max-width: 768px)');
+
+    const cards = reviews.map((item, i) => (
+        <ReviewCard
+            key={item.id}
+            index={i}
+            avatarSrc={item.avatarSrc}
+            avatarAlt={item.avatarAlt}
+            review={item.review}
+            name={item.name}
+            role={item.role}
+            color={item.color}
+        />
+    ));
 
     return (
         <section className={styles.reviewsSection}>
@@ -25,52 +39,10 @@ export default function Reviews() {
                 <h4 className={styles.subtitle}>Cowork in Words</h4>
             </div>
 
-            {!isTablet ? (
-                <div className={styles.reviews}>
-                    {reviews.map((item, i) => (
-                        <div
-                            className={`${styles.card} ${styles[`card-${i}`]}`}
-                            key={item.id}
-                            style={{ backgroundColor: item.color }}
-                        >
-                            <Image
-                                src={item.avatarSrc}
-                                alt={item.avatarAlt}
-                                width={56}
-                                height={56}
-                                style={{ margin: '0 auto', marginBottom: 24 }}
-                            />
-
-                            <p>{item.review}</p>
-
-                            <h6 className={styles.name}>{item.name}</h6>
-                            <h6 className={styles.role}>{item.role}</h6>
-                        </div>
-                    ))}
-                </div>
+            {isMobile ? (
+                <ScrollbarSwiper>{cards}</ScrollbarSwiper>
             ) : (
-                <ScrollbarSwiper>
-                    {reviews.map((item, i) => (
-                        <div
-                            className={`${styles.card} ${styles[`card-${i}`]}`}
-                            key={item.id}
-                            style={{ backgroundColor: item.color }}
-                        >
-                            <Image
-                                src={item.avatarSrc}
-                                alt={item.avatarAlt}
-                                width={56}
-                                height={56}
-                                style={{ margin: '0 auto', marginBottom: 24 }}
-                            />
-
-                            <p>{item.review}</p>
-
-                            <h6 className={styles.name}>{item.name}</h6>
-                            <h6 className={styles.role}>{item.role}</h6>
-                        </div>
-                    ))}
-                </ScrollbarSwiper>
+                <div className={styles.reviews}>{cards}</div>
             )}
         </section>
     );

@@ -1,53 +1,59 @@
 'use client';
 
-import { useState } from 'react';
+import styles from './catalog.module.css';
 import Article from '@/components/article/Article';
 import Slider from '@/components/slider/Slider';
-import styles from './catalog.module.css';
-import { articles } from '@/data/articles';
 import Search from '@/components/search/Search';
-import { useMediaQuery } from '@/hooks/useMediaQuery';
-import Modal from '@/components/modal/Modal';
 import Image from 'next/image';
+import { categories } from '@/data/categories';
+import { articles } from '@/data/articles';
+import { useState, useMemo } from 'react';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 import { chunkArray } from '@/utils/chunkArray';
-
-const categories = [
-    'All',
-    'Trending',
-    'Productivity',
-    'Career',
-    'Lifestyle',
-    'Talk',
-] as const;
 
 type Category = (typeof categories)[number];
 
-export default function Catalog() {
-    const [activeCategory, setActiveCategory] = useState<Category>('All');
+type CatalogProps = {
+    onOpenFilter: () => void;
+    activeCategory: Category;
+    setActiveCategory: (category: Category) => void;
+};
+
+export default function Catalog({
+    onOpenFilter,
+    activeCategory,
+    setActiveCategory,
+}: CatalogProps) {
     const [query, setQuery] = useState('');
-    const isTablet = useMediaQuery('(max-width: 768px)');
-    const [isOpen, setIsOpen] = useState(false);
 
-    const allArticles = articles;
-    const slides = chunkArray(articles, 9);
-
-    const searchedArticles = allArticles.filter((item) =>
-        item.title.toLowerCase().includes(query.toLowerCase())
-    );
-
-    const filteredArticles =
-        activeCategory === 'All'
-            ? []
-            : allArticles.filter(
-                  (article) => article.category === activeCategory
-              );
-
+    const isMobile = useMediaQuery('(max-width: 768px)');
     const isSearching = query.trim().length > 0;
+
+    const filteredArticles = useMemo(() => {
+        if (isSearching) {
+            return articles.filter((article) =>
+                article.title.toLowerCase().includes(query.toLowerCase())
+            );
+        }
+
+        if (activeCategory === 'All') {
+            return articles;
+        }
+
+        return articles.filter(
+            (article) => article.category === activeCategory
+        );
+    }, [query, activeCategory, isSearching]);
+
+    const slides = useMemo(
+        () => chunkArray(filteredArticles, 9),
+        [filteredArticles]
+    );
 
     return (
         <section className={styles.catalogSection}>
             <div className={styles.buttons}>
-                {!isTablet ? (
+                {!isMobile ? (
                     categories.map((category) => (
                         <button
                             key={category}
@@ -63,41 +69,27 @@ export default function Catalog() {
                         </button>
                     ))
                 ) : (
-                    <>
-                        <button
-                            className={styles.filterBtn}
-                            onClick={() => setIsOpen(true)}
-                            aria-label="Open menu"
-                        >
-                            <Image
-                                src="/filter.svg"
-                                alt="Filter menu"
-                                width={24}
-                                height={24}
-                                priority
-                                className={styles.filterIcon}
-                            />
-                        </button>
-                    </>
+                    <button
+                        className={styles.filterBtn}
+                        onClick={onOpenFilter}
+                        aria-label="Open menu"
+                    >
+                        <Image
+                            src="/filter.svg"
+                            alt="Filter menu"
+                            width={24}
+                            height={24}
+                            className={styles.filterIcon}
+                        />
+                    </button>
                 )}
 
                 <Search onSearch={setQuery} />
             </div>
 
-            {isSearching ? (
-                <div className={styles.productsGrid}>
-                    {searchedArticles.length > 0 ? (
-                        searchedArticles.map((article) => (
-                            <Article
-                                key={article.id}
-                                {...article}
-                            />
-                        ))
-                    ) : (
-                        <h2 className={styles.error}>Nothing found</h2>
-                    )}
-                </div>
-            ) : activeCategory === 'All' ? (
+            {filteredArticles.length === 0 ? (
+                <h2 className={styles.error}>Nothing found</h2>
+            ) : activeCategory === 'All' && !isSearching ? (
                 <Slider showNumbers>
                     {slides.map((section, index) => (
                         <div
@@ -115,22 +107,14 @@ export default function Catalog() {
                 </Slider>
             ) : (
                 <div className={styles.productsGrid}>
-                    {filteredArticles.map((product) => (
+                    {filteredArticles.map((article) => (
                         <Article
-                            key={product.id}
-                            {...product}
+                            key={article.id}
+                            {...article}
                         />
                     ))}
                 </div>
             )}
-
-            <Modal
-                isOpen={isOpen}
-                onClose={() => setIsOpen(false)}
-                color={{ backgroundColor: '#FFF' }}
-            >
-                <div className=""></div>
-            </Modal>
         </section>
     );
 }

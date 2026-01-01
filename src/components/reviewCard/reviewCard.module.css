@@ -1,0 +1,88 @@
+.card {
+    max-width: 360px;
+    height: min-content;
+    padding: 32px;
+    color: var(--color-light);
+    border-radius: 24px;
+}
+
+.name,
+.role {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 150%;
+    letter-spacing: 0%;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.role {
+    font-weight: 400;
+    text-transform: none;
+}
+
+.card-0 h6,
+.card-2 h6,
+.card-4 h6 {
+    color: var(--color-light);
+}
+
+.card-1,
+.card-3,
+.card-1 h6,
+.card-3 h6 {
+    color: var(--color-dark);
+}
+
+.card-0 {
+    transform: translateY(25px);
+}
+
+.card-2 {
+    transform: translateY(20px);
+}
+
+.card-3 {
+    transform: translateY(-40px);
+}
+
+.card-4 {
+    transform: translateY(-15px);
+}
+
+@media (max-width: 1024px) {
+    .card-1 {
+        order: -1;
+    }
+}
+
+@media (max-width: 768px) {
+    .card-0,
+    .card-1,
+    .card-2,
+    .card-3,
+    .card-4 {
+        transform: translateY(0);
+    }
+
+    .card {
+        max-width: none;
+        height: 276px;
+    }
+}
+
+@media (max-width: 576px) {
+    .card {
+        padding: 16px 24px;
+    }
+
+    .card p {
+        margin-bottom: 16px;
+        font-size: 12px;
+    }
+
+    .card img {
+        margin-bottom: 8px !important;
+    }
+}

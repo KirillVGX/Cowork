@@ -12,7 +12,7 @@ export default async function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <html lang="en" data-scroll-behavior="smooth">
+        <html lang="en">
             <head>
                 <title>Cowork</title>
             </head>

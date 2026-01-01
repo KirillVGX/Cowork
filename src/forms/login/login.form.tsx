@@ -36,16 +36,13 @@ export default function LoginForm() {
                     setSubmitting(false);
 
                     if (res?.ok) {
-                        // 1️⃣ успех
                         setSuccessToast(true);
 
-                        // 2️⃣ скрываем успех → показываем редирект
                         setTimeout(() => {
                             setSuccessToast(false);
                             setRedirectToast(true);
                         }, 1200);
 
-                        // 3️⃣ редирект
                         setTimeout(() => {
                             setRedirectToast(false);
                             router.push('/');
@@ -85,19 +82,19 @@ export default function LoginForm() {
 
             <Toast
                 show={successToast}
-                text="Вход выполнен успешно 👋"
+                text="Login successful 👋"
                 variant="success"
             />
 
             <Toast
                 show={redirectToast}
-                text="Перенаправляем на главную…"
+                text="Redirecting to the homepage…"
                 variant="loading"
             />
 
             <Toast
                 show={errorToast}
-                text="Неверный email или пароль"
+                text="Invalid email or password"
                 variant="error"
             />
         </>

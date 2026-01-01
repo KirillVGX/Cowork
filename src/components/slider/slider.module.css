@@ -103,9 +103,11 @@
     flex-shrink: 0;
 }
 
-.paginationBullet:hover {
-    background: rgba(59, 78, 255, 0.1);
-    border-color: var(--color-blue);
+@media (hover: hover) and (pointer: fine) {
+    .paginationBullet:hover {
+        background: rgba(59, 78, 255, 0.1);
+        border-color: var(--color-blue);
+    }
 }
 
 .paginationBullet.active {

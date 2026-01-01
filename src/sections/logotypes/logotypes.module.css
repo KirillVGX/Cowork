@@ -20,8 +20,10 @@
     cursor: pointer;
 }
 
-.logo:hover {
-    transform: scale(1.1);
+@media (hover: hover) and (pointer: fine) {
+    .logo:hover {
+        transform: scale(1.1);
+    }
 }
 
 @media (max-width: 1024px) {

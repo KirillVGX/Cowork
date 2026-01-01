@@ -1,9 +1,16 @@
+import { lazy, Suspense } from 'react';
+import Reveal from '@/hoc/reveal/Reveal';
+
 import { notFound } from 'next/navigation';
 import { articles } from '@/data/articles';
-import Post from '@/components/post/Post';
-import Recommendations from '@/components/recommendations/Recommendations';
 import Button from '@/components/button/Button';
 import styles from './post.module.css';
+import Loader from '@/components/loader/Loader';
+
+const Post = lazy(() => import('@/components/post/Post'));
+const Recommendations = lazy(
+    () => import('@/components/recommendations/Recommendations')
+);
 
 export default async function Page({
     params,
@@ -16,15 +23,19 @@ export default async function Page({
     if (!article) notFound();
 
     return (
-        <>
-            <Post title={article.title} />
-            <div className={styles.post}>
-                <Recommendations />
-                <Button
-                    text="View all"
-                    color="blue"
-                />
-            </div>
-        </>
+        <Suspense fallback={<Loader />}>
+            <Reveal>
+                <Post title={article.title} />
+            </Reveal>
+            <Reveal>
+                <div className={styles.post}>
+                    <Recommendations />
+                    <Button
+                        text="View all"
+                        color="blue"
+                    />
+                </div>
+            </Reveal>
+        </Suspense>
     );
 }

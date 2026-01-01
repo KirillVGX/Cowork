@@ -1,25 +1,47 @@
-import Hero from '@/sections/hero/Hero';
-import Logotypes from '@/sections/logotypes/Logotypes';
-import Advantages from '@/sections/advantages/advantages';
-import Tour from '@/sections/tour/Tour';
-import Statistics from '@/sections/statistics/Statistics';
-import Reviews from '@/sections/reviews/Reviews';
-import FAQ from '@/sections/FAQ/FAQ';
-import CTA from '@/sections/CTA/CTA';
-import Insights from '@/sections/insights/Insights';
+import { lazy, Suspense } from 'react';
+import Reveal from '@/hoc/reveal/Reveal';
+import Loader from '@/components/loader/Loader';
+
+const Hero = lazy(() => import('@/sections/hero/Hero'));
+const Logotypes = lazy(() => import('@/sections/logotypes/Logotypes'));
+const Advantages = lazy(() => import('@/sections/advantages/advantages'));
+const Tour = lazy(() => import('@/sections/tour/Tour'));
+const Statistics = lazy(() => import('@/sections/statistics/Statistics'));
+const Reviews = lazy(() => import('@/sections/reviews/Reviews'));
+const FAQ = lazy(() => import('@/sections/FAQ/FAQ'));
+const CTA = lazy(() => import('@/sections/CTA/CTA'));
+const Insights = lazy(() => import('@/sections/insights/Insights'));
 
 export default function HomePage() {
     return (
-        <>
-            <Hero />
-            <Logotypes />
-            <Advantages />
-            <Tour />
-            <Statistics />
-            <Reviews />
-            <FAQ />
-            <CTA />
-            <Insights />
-        </>
+        <Suspense fallback={<Loader />}>
+            <Reveal>
+                <Hero />
+            </Reveal>
+            <Reveal>
+                <Logotypes />
+            </Reveal>
+            <Reveal>
+                <Advantages />
+            </Reveal>
+            <Reveal>
+                <Tour />
+            </Reveal>
+            <Reveal>
+                <Statistics />
+            </Reveal>
+            <Reveal>
+                <Reviews />
+            </Reveal>
+            <Reveal>
+                <FAQ />
+            </Reveal>
+            <Reveal>
+                <CTA />
+            </Reveal>
+            <Reveal>
+                <Insights />
+            </Reveal>
+        </Suspense>
     );
 }

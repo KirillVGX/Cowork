@@ -77,10 +77,6 @@
     transition: all 0.2s ease;
 }
 
-.listItem:hover {
-    background-color: var(--color-dark);
-}
-
 .listItem.activeItem {
     background: lightslategrey;
 }
@@ -97,6 +93,12 @@
 
 .error {
     border-bottom: 1px solid #ff4d4f;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .listItem:hover {
+        background-color: var(--color-dark);
+    }
 }
 
 @media (max-width: 576px) {

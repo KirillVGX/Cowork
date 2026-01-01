@@ -1,8 +1,8 @@
 'use client';
 
+import { Accordion } from '@/components/accordion/Accordion';
 import styles from './FAQ.module.css';
 import { questions } from '@/data/questions';
-import Image from 'next/image';
 import { useState } from 'react';
 
 export default function FAQ() {
@@ -26,35 +26,14 @@ export default function FAQ() {
 
             <div className={styles.acordionBlock}>
                 {questions.map((item) => (
-                    <div
-                        className={styles.acordion}
+                    <Accordion
                         key={item.id}
-                        onClick={() => toggle(item.id)}
-                    >
-                        <div className={styles.questionBlock}>
-                            <p className={styles.question}>{item.question}</p>
-                            <span
-                                className={`${styles.icon} ${
-                                    openId === item.id ? styles.rotate : ''
-                                }`}
-                            >
-                                <Image
-                                    src="/arrow.svg"
-                                    alt="open button"
-                                    width={10}
-                                    height={5}
-                                />
-                            </span>
-                        </div>
-
-                        <div
-                            className={`${styles.answerWrapper} ${
-                                openId === item.id ? styles.open : ''
-                            }`}
-                        >
-                            <p className={styles.answer}>{item.answer}</p>
-                        </div>
-                    </div>
+                        id={item.id}
+                        title={item.question}
+                        content={item.answer}
+                        isOpen={openId === item.id}
+                        onToggle={toggle}
+                    />
                 ))}
             </div>
         </section>

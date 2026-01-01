@@ -60,10 +60,6 @@
     opacity: 0.7;
 }
 
-.link:hover {
-    opacity: 1;
-}
-
 .copyrightBlock {
     display: flex;
     flex-direction: row;
@@ -82,6 +78,12 @@
 
 .undelline {
     text-decoration: underline;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .link:hover {
+        opacity: 1;
+    }
 }
 
 @media (max-width: 1024px) {

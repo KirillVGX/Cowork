@@ -79,12 +79,16 @@ export default function ModalBody({
                     {status === 'unauthenticated' && (
                         <>
                             <Link href="/login">
-                                <Button text="Log In" />
+                                <Button
+                                    text="Log In"
+                                    onClick={onClose}
+                                />
                             </Link>
                             <Link href="/register">
                                 <Button
                                     text="Sign Up"
                                     color="blue"
+                                    onClick={onClose}
                                 />
                             </Link>
                         </>

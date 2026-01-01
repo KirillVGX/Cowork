@@ -1,0 +1,30 @@
+.modalCategories {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    margin-top: 90px;
+}
+
+.modalButton {
+    font-family: var(--font-heading);
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 150%;
+
+    color: var(--color-dark);
+    background-color: var(--color-light);
+    border: var(--border-dark);
+    border-radius: 100px;
+    padding: 12px 24px;
+
+    width: 146px;
+    cursor: pointer;
+    background: transparent;
+}
+
+.active {
+    background: var(--color-blue);
+    color: var(--color-light);
+    border: var(--border-blue);
+}

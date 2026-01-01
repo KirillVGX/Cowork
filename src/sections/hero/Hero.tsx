@@ -7,6 +7,7 @@ import { useMediaQuery } from '@/hooks/useMediaQuery';
 
 export default function Hero() {
     const isTablet = useMediaQuery('(max-width: 768px)');
+    
     return (
         <section className={styles.heroSection}>
             <div className={styles.infoBlock}>

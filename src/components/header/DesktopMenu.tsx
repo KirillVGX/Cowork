@@ -4,6 +4,8 @@ import Link from 'next/link';
 import Button from '../button/Button';
 import styles from './header.module.css';
 import { Navigation } from './Navigation';
+import { useRouter } from 'next/navigation';
+import { useNavigationStore } from '@/store/navigation.store';
 
 type DesktopMenuProps = {
     status: 'loading' | 'authenticated' | 'unauthenticated';
@@ -11,17 +13,21 @@ type DesktopMenuProps = {
     onSignOut: () => void;
 };
 
-export function DesktopMenu({
-    status,
-    name,
-    onSignOut,
-}: DesktopMenuProps) {
+export function DesktopMenu({ status, name, onSignOut }: DesktopMenuProps) {
+    const router = useRouter();
+    const { navigate, redirectToast } = useNavigationStore();
+
     return (
         <div className={styles.actions}>
             <Navigation />
 
             <div className={styles.AuthButtons}>
-                {status === 'loading' && <p>Loading...</p>}
+                {status === 'loading' && (
+                    <div className={styles.loader}>
+                        <div className={styles.spinner}></div>
+                        Loading...
+                    </div>
+                )}
 
                 {status === 'authenticated' && (
                     <>
@@ -36,12 +42,18 @@ export function DesktopMenu({
 
                 {status === 'unauthenticated' && (
                     <>
-                        <Link href="/login">
-                            <Button text="Log In" />
-                        </Link>
-                        <Link href="/register">
-                            <Button text="Sign Up" color="blue" />
-                        </Link>
+                        <Button
+                            text="Log In"
+                            type="button"
+                            onClick={() => navigate(router, '/login')}
+                        />
+
+                        <Button
+                            text="Sign Up"
+                            color="blue"
+                            type="button"
+                            onClick={() => navigate(router, '/register')}
+                        />
                     </>
                 )}
             </div>

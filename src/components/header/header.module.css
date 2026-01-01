@@ -21,10 +21,6 @@
     transition: transform 0.3s ease;
 }
 
-.logo:hover {
-    transform: scale(1.1);
-}
-
 .actions {
     display: flex;
     flex-direction: row;
@@ -44,12 +40,6 @@
     box-sizing: border-box;
     transition: background-color 0.3s ease, box-shadow 0.3s ease,
         border 0.4s ease;
-}
-
-.navItem:hover {
-    background-color: var(--color-hover-light);
-    box-shadow: 0 6px 16px #00000014;
-    border: var(--border-dark);
 }
 
 .navLink {
@@ -90,6 +80,48 @@
     outline: none;
 }
 
+/* Loader */
+.loader {
+    display: none;
+    font-weight: bold;
+    color: #4c6ef5;
+    font-size: 18px;
+    align-items: center;
+    gap: 10px;
+    margin: 15px auto;
+    max-width: 223px;
+}
+
+.spinner {
+    width: 22px;
+    height: 22px;
+    border: 3px solid #bcc8ff;
+    border-top-color: #4c6ef5;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .navItem:hover {
+        background-color: var(--color-hover-light);
+        box-shadow: 0 6px 16px #00000014;
+        border: var(--border-dark);
+    }
+
+    .logo:hover {
+        transform: scale(1.1);
+    }
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
 @media (max-width: 1024px) {
     .actions,
     .navMenu {
@@ -98,6 +130,14 @@
 
     .AuthButtons {
         gap: 16px;
+    }
+
+    .navLink {
+        padding-inline: 12px 10px;
+    }
+
+    .btn {
+        padding-inline: 10px !important;
     }
 }
 
@@ -129,5 +169,9 @@
     .AuthButtons {
         margin-left: auto;
         gap: 24px;
+    }
+
+    .btn {
+        padding-inline: 24px !important;
     }
 }

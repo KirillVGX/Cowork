@@ -76,7 +76,7 @@ export default function RegisterForm() {
                     >
                         <Field
                             name="name"
-                            placeholder="Full name"
+                            placeholder="First name"
                             className={`${styles.input} ${
                                 errors.name && submitCount > 0
                                     ? styles.error
@@ -97,7 +97,7 @@ export default function RegisterForm() {
                         <Field
                             name="password"
                             type="password"
-                            placeholder="Пароль"
+                            placeholder="Password"
                             className={`${styles.input} ${
                                 errors.password && submitCount > 0
                                     ? styles.error
@@ -108,7 +108,7 @@ export default function RegisterForm() {
                         <Field
                             name="confirmPassword"
                             type="password"
-                            placeholder="Повторите пароль"
+                            placeholder="Confirm Password"
                             className={`${styles.input} ${
                                 errors.confirmPassword && submitCount > 0
                                     ? styles.error
@@ -128,19 +128,19 @@ export default function RegisterForm() {
 
             <Toast
                 show={successToast}
-                text="Регистрация успешна 🎉"
+                text="Registration successful 🎉"
                 variant="success"
             />
 
             <Toast
                 show={redirectToast}
-                text="Перенаправляем на страницу входа…"
+                text="Redirecting to the login page…"
                 variant="loading"
             />
 
             <Toast
                 show={errorToast}
-                text="Ошибка регистрации"
+                text="Registration error"
                 variant="error"
             />
         </>
