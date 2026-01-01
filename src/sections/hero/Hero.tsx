@@ -36,7 +36,7 @@ export default function Hero() {
             <div className={styles.img}>
                 {!isMobile ? (
                     <Image
-                        src="/image.jpg"
+                        src="/Image.jpg"
                         alt="Mens in cafe with laptop"
                         width={460}
                         height={642}
