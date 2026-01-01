@@ -37,7 +37,7 @@ export default function Hero() {
                 {!isMobile ? (
                     <Image
                         className={styles.backImage}
-                        src="/image.svg"
+                        src="/image.jpg"
                         alt="Mens in cafe with laptop"
                         width={460}
                         height={642}
