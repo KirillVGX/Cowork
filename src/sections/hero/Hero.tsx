@@ -41,6 +41,7 @@ export default function Hero() {
                         alt="Mens in cafe with laptop"
                         width={460}
                         height={642}
+                        priority
                     />
                 ) : (
                     <Image
