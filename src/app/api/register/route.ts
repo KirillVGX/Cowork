@@ -6,10 +6,11 @@ import prisma from '@/utils/prisma';
 
 export async function POST(req: Request) {
     try {
-        const { login, password, confirmPassword } = await req.json();
+        const { login, name, password, confirmPassword } = await req.json();
 
         await prisma.user.create({
             data: {
+                name,
                 email: login,
                 password,
             },
