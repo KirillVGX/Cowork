@@ -17,9 +17,17 @@ const initialValues: RegisterFormData = {
     confirmPassword: '',
 };
 
+type ToastState = {
+    show: boolean;
+    text: string;
+    variant: 'success' | 'error';
+};
+
 export default function RegisterForm() {
-    const [showToast, setShowToast] = useState(false);
     const router = useRouter();
+    const [successToast, setSuccessToast] = useState(false);
+    const [errorToast, setErrorToast] = useState(false);
+    const [redirectToast, setRedirectToast] = useState(false);
 
     return (
         <>
@@ -38,13 +46,25 @@ export default function RegisterForm() {
                     setSubmitting(false);
 
                     if (result.ok) {
-                        setShowToast(true);
+                        setSuccessToast(true);
+
                         resetForm();
 
                         setTimeout(() => {
-                            setShowToast(false);
+                            setSuccessToast(false);
+                            setRedirectToast(true);
+                        }, 1500);
+
+                        setTimeout(() => {
+                            setRedirectToast(false);
                             router.push('/login');
-                        }, 2000);
+                        }, 3000);
+                    } else {
+                        setErrorToast(true);
+
+                        setTimeout(() => {
+                            setErrorToast(false);
+                        }, 3000);
                     }
                 }}
             >
@@ -99,7 +119,7 @@ export default function RegisterForm() {
                         <Button
                             type="submit"
                             text="Sign Up"
-                            color='blue'
+                            color="blue"
                             disabled={isSubmitting}
                         />
                     </Form>
@@ -107,8 +127,21 @@ export default function RegisterForm() {
             </Formik>
 
             <Toast
-                show={showToast}
+                show={successToast}
                 text="Регистрация успешна 🎉"
+                variant="success"
+            />
+
+            <Toast
+                show={redirectToast}
+                text="Перенаправляем на страницу входа…"
+                variant="loading"
+            />
+
+            <Toast
+                show={errorToast}
+                text="Ошибка регистрации"
+                variant="error"
             />
         </>
     );

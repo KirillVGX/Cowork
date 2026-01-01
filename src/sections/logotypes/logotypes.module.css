@@ -15,6 +15,15 @@
     gap: 48px;
 }
 
+.logo {
+    transition: transform 0.3s ease;
+    cursor: pointer;
+}
+
+.logo:hover {
+    transform: scale(1.1);
+}
+
 @media (max-width: 1024px) {
     .logotypes {
         padding-block: 24px;

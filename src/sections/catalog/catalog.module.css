@@ -34,7 +34,7 @@
 
     color: var(--color-dark);
     background-color: var(--color-light);
-    border: 1px solid var(--color-dark);
+    border: var(--border-dark);
     border-radius: 100px;
     padding: 12px 24px;
 
@@ -46,13 +46,13 @@
 .button:hover {
     background: var(--color-blue);
     color: var(--color-light);
-    border: 1px solid var(--color-blue);
+    border: var(--border-blue);
 }
 
 .active {
     background: var(--color-blue);
     color: var(--color-light);
-    border: 1px solid var(--color-blue);
+    border: var(--border-blue);
 }
 
 .error {
@@ -66,7 +66,7 @@
     width: 48px;
     height: 48px;
 
-    border: 1px solid var(--color-dark);
+    border: var(--border-dark);
     border-radius: 50%;
     outline: none;
     background-color: transparent;

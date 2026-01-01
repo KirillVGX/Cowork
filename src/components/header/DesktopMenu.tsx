@@ -1,17 +1,17 @@
-import Link from "next/link";
-import Button from "../button/Button";
-import styles from './header.module.css'
-import { Navigation } from "./Navigation";
+'use client';
+
+import Link from 'next/link';
+import Button from '../button/Button';
+import styles from './header.module.css';
+import { Navigation } from './Navigation';
 
 type DesktopMenuProps = {
-    isAuth: boolean;
     status: 'loading' | 'authenticated' | 'unauthenticated';
-    name?: string | null | undefined;
+    name?: string | null;
     onSignOut: () => void;
 };
 
 export function DesktopMenu({
-    isAuth,
     status,
     name,
     onSignOut,
@@ -21,11 +21,20 @@ export function DesktopMenu({
             <Navigation />
 
             <div className={styles.AuthButtons}>
-                {isAuth && <p>hello, {name}!</p>}
-
                 {status === 'loading' && <p>Loading...</p>}
 
-                {status !== 'loading' && !isAuth && (
+                {status === 'authenticated' && (
+                    <>
+                        <p className={styles.greeting}>{name}</p>
+                        <Button
+                            text="Log out"
+                            color="blue"
+                            onClick={onSignOut}
+                        />
+                    </>
+                )}
+
+                {status === 'unauthenticated' && (
                     <>
                         <Link href="/login">
                             <Button text="Log In" />
@@ -34,14 +43,6 @@ export function DesktopMenu({
                             <Button text="Sign Up" color="blue" />
                         </Link>
                     </>
-                )}
-
-                {isAuth && status !== 'loading' && (
-                    <Button
-                        text="Log out"
-                        color="blue"
-                        onClick={onSignOut}
-                    />
                 )}
             </div>
         </div>

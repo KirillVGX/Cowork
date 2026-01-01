@@ -9,8 +9,20 @@
     justify-content: space-between;
     gap: 40px;
 
-    border-top: 1px solid hsla(0, 0%, 0%, 1);
-    border-bottom: 1px solid hsla(0, 0%, 0%, 1);
+    position: sticky;
+    top: 0;
+    background-color: var(--color-light);
+    z-index: 100;
+
+    border-block: var(--border-dark);
+}
+
+.logo {
+    transition: transform 0.3s ease;
+}
+
+.logo:hover {
+    transform: scale(1.1);
 }
 
 .actions {
@@ -23,10 +35,42 @@
 .navMenu {
     display: flex;
     flex-direction: row;
-    gap: 48px;
+    gap: 8px;
 }
 
 .navItem {
+    border-radius: var(--border-radius-small);
+    border: var(--border-light);
+    box-sizing: border-box;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease,
+        border 0.4s ease;
+}
+
+.navItem:hover {
+    background-color: var(--color-hover-light);
+    box-shadow: 0 6px 16px #00000014;
+    border: var(--border-dark);
+}
+
+.navLink {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 12px 20px;
+}
+
+.greeting {
+    font-family: var(--font-base);
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    line-height: 100%;
+    border-radius: 999px;
+    background: var(--color-yellow);
+    border: var(--border-dark);
+    margin: 0;
+    align-self: center;
+    padding: 12px 24px;
     cursor: pointer;
 }
 
@@ -76,6 +120,10 @@
         font-weight: 700;
         font-size: 32px;
         line-height: 140%;
+    }
+
+    .navItem {
+        border: var(--border-dark);
     }
 
     .AuthButtons {

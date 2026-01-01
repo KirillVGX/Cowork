@@ -23,7 +23,9 @@ const initialValues: ContactFormData = {
 };
 
 export default function ContactForm() {
-    const [showToast, setShowToast] = useState(false);
+    const [successToast, setSuccessToast] = useState(false);
+    const [errorToast, setErrorToast] = useState(false);
+    const [errorText, setErrorText] = useState('');
 
     return (
         <>
@@ -37,17 +39,25 @@ export default function ContactForm() {
                         formData.append(key, value ?? '');
                     });
 
-                    const result = await ContactUser(
-                        { ok: false },
-                        formData
-                    );
+                    const result = await ContactUser({ ok: false }, formData);
 
                     setSubmitting(false);
 
                     if (result.ok) {
                         resetForm();
-                        setShowToast(true);
-                        setTimeout(() => setShowToast(false), 3000);
+
+                        setSuccessToast(true);
+
+                        setTimeout(() => {
+                            setSuccessToast(false);
+                        }, 3000);
+                    } else {
+                        setErrorText(result.error ?? 'Failed to send message');
+                        setErrorToast(true);
+
+                        setTimeout(() => {
+                            setErrorToast(false);
+                        }, 3000);
                     }
                 }}
             >
@@ -107,8 +117,15 @@ export default function ContactForm() {
             </Formik>
 
             <Toast
-                show={showToast}
-                text="Successfully subscribed 🎉"
+                show={successToast}
+                text="Message successfully sent 🎉"
+                variant="success"
+            />
+
+            <Toast
+                show={errorToast}
+                text={errorText}
+                variant="error"
             />
         </>
     );

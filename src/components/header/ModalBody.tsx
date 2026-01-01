@@ -7,10 +7,19 @@ import Button from '@/components/button/Button';
 
 type ModalBodyProps = {
     isOpen: boolean;
+    status: 'loading' | 'authenticated' | 'unauthenticated';
+    name?: string | null;
     onClose: () => void;
+    onSignOut: () => void;
 };
 
-export default function ModalBody({ isOpen, onClose }: ModalBodyProps) {
+export default function ModalBody({
+    isOpen,
+    onClose,
+    status,
+    name,
+    onSignOut,
+}: ModalBodyProps) {
     return (
         <Modal
             isOpen={isOpen}
@@ -54,11 +63,32 @@ export default function ModalBody({ isOpen, onClose }: ModalBodyProps) {
                 </nav>
 
                 <div className={styles.AuthButtons}>
-                    <Button text="Log In" />
-                    <Button
-                        text="Sign Up"
-                        color="blue"
-                    />
+                    {status === 'loading' && <p>Loading...</p>}
+
+                    {status === 'authenticated' && (
+                        <>
+                            <p className={styles.greeting}>{name}</p>
+                            <Button
+                                text="Log out"
+                                color="blue"
+                                onClick={onSignOut}
+                            />
+                        </>
+                    )}
+
+                    {status === 'unauthenticated' && (
+                        <>
+                            <Link href="/login">
+                                <Button text="Log In" />
+                            </Link>
+                            <Link href="/register">
+                                <Button
+                                    text="Sign Up"
+                                    color="blue"
+                                />
+                            </Link>
+                        </>
+                    )}
                 </div>
             </div>
         </Modal>

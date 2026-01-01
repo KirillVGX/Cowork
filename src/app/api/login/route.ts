@@ -33,7 +33,6 @@ export async function POST(req: Request) {
             );
         }
 
-        // ⚠️ пока без сессий и JWT
         return NextResponse.json({
             ok: true,
             user: {

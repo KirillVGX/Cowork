@@ -11,9 +11,16 @@
 
     font-family: var(--font-heading);
     border: none;
-    border-bottom: 1px solid var(--color-light);
-    color: hsla(0, 0%, 100%, 0.7);
-    cursor: pointer;
+    border-bottom: var(--border-light);
+    cursor: pointer !important;
+}
+
+.list p {
+    color: var(--color-label);
+}
+
+.activeOption {
+    color: var(--color-light) !important;
 }
 
 .openBtnImg {
@@ -66,7 +73,7 @@
 .listItem {
     padding: 12px;
     cursor: pointer;
-    color: hsla(0, 0%, 100%, 0.7);
+    color: var(--color-label);
     transition: all 0.2s ease;
 }
 

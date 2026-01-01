@@ -15,6 +15,7 @@ export default function Logotypes() {
                         alt={logo.alt}
                         width={logo.width}
                         height={logo.height}
+                        className={styles.logo}
                     />
                 ))}
             </div>

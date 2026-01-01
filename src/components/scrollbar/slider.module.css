@@ -19,6 +19,6 @@
 }
 
 .swiper-scrollbar-drag {
-    background: #fff;
+    background: var(--color-light);
     border-radius: 4px;
 }

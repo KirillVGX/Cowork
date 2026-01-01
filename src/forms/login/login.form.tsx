@@ -4,7 +4,7 @@ import styles from './login.module.css';
 import { Formik, Form, Field } from 'formik';
 import { toFormikValidationSchema } from 'zod-formik-adapter';
 import { signInSchema, SignInFormData } from '@/schema/login';
-import { signInWithCredentials } from '@/actions/sign-in';
+import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import Toast from '@/components/toast/Toast';
@@ -17,8 +17,9 @@ const initialValues: SignInFormData = {
 
 export default function LoginForm() {
     const router = useRouter();
-    const [showSuccessToast, setShowSuccessToast] = useState(false);
-    const [showErrorToast, setShowErrorToast] = useState(false);
+    const [successToast, setSuccessToast] = useState(false);
+    const [redirectToast, setRedirectToast] = useState(false);
+    const [errorToast, setErrorToast] = useState(false);
 
     return (
         <>
@@ -26,65 +27,56 @@ export default function LoginForm() {
                 initialValues={initialValues}
                 validationSchema={toFormikValidationSchema(signInSchema)}
                 onSubmit={async (values, { setSubmitting }) => {
-                    const formData = new FormData();
-
-                    Object.entries(values).forEach(([key, value]) => {
-                        formData.append(key, value);
+                    const res = await signIn('credentials', {
+                        email: values.email,
+                        password: values.password,
+                        redirect: false,
                     });
-
-                    const result = await signInWithCredentials(
-                        { ok: false },
-                        formData
-                    );
 
                     setSubmitting(false);
 
-                    if (result.ok) {
-                        setShowSuccessToast(true);
+                    if (res?.ok) {
+                        // 1️⃣ успех
+                        setSuccessToast(true);
+
+                        // 2️⃣ скрываем успех → показываем редирект
                         setTimeout(() => {
-                            setShowSuccessToast(false);
+                            setSuccessToast(false);
+                            setRedirectToast(true);
+                        }, 1200);
+
+                        // 3️⃣ редирект
+                        setTimeout(() => {
+                            setRedirectToast(false);
                             router.push('/');
-                        }, 1500);
+                        }, 2500);
                     } else {
-                        setShowErrorToast(true);
+                        setErrorToast(true);
+
                         setTimeout(() => {
-                            setShowErrorToast(false);
+                            setErrorToast(false);
                         }, 3000);
                     }
                 }}
             >
-                {({ errors, submitCount, isSubmitting }) => (
-                    <Form
-                        className={styles.login}
-                        noValidate
-                        autoComplete="off"
-                    >
+                {({ isSubmitting }) => (
+                    <Form className={styles.login}>
                         <Field
                             name="email"
-                            type="email"
                             placeholder="Email"
-                            className={`${styles.input} ${
-                                errors.email && submitCount > 0
-                                    ? styles.error
-                                    : ''
-                            }`}
+                            className={styles.input}
                         />
-
                         <Field
                             name="password"
                             type="password"
                             placeholder="Password"
-                            className={`${styles.input} ${
-                                errors.password && submitCount > 0
-                                    ? styles.error
-                                    : ''
-                            }`}
+                            className={styles.input}
                         />
 
                         <Button
                             type="submit"
                             text="Log In"
-                            color='blue'
+                            color="blue"
                             disabled={isSubmitting}
                         />
                     </Form>
@@ -92,13 +84,21 @@ export default function LoginForm() {
             </Formik>
 
             <Toast
-                show={showSuccessToast}
-                text="Вы успешно вошли ✅"
+                show={successToast}
+                text="Вход выполнен успешно 👋"
+                variant="success"
             />
 
             <Toast
-                show={showErrorToast}
+                show={redirectToast}
+                text="Перенаправляем на главную…"
+                variant="loading"
+            />
+
+            <Toast
+                show={errorToast}
                 text="Неверный email или пароль"
+                variant="error"
             />
         </>
     );

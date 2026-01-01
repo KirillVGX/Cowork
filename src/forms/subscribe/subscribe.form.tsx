@@ -16,8 +16,9 @@ const initialValues: SubscribeFormData = {
 };
 
 export default function SubscribeForm() {
-    const [showToast, setShowToast] = useState(false);
-    const [serverError, setServerError] = useState<string | null>(null);
+    const [successToast, setSuccessToast] = useState(false);
+    const [errorToast, setErrorToast] = useState(false);
+    const [errorText, setErrorText] = useState('');
 
     return (
         <>
@@ -25,8 +26,6 @@ export default function SubscribeForm() {
                 initialValues={initialValues}
                 validationSchema={toFormikValidationSchema(subscribeSchema)}
                 onSubmit={async (values, { resetForm, setSubmitting }) => {
-                    setServerError(null);
-
                     const formData = new FormData();
                     formData.append('emailFooter', values.emailFooter);
 
@@ -39,10 +38,19 @@ export default function SubscribeForm() {
 
                     if (result.ok) {
                         resetForm();
-                        setShowToast(true);
-                        setTimeout(() => setShowToast(false), 3000);
+
+                        setSuccessToast(true);
+
+                        setTimeout(() => {
+                            setSuccessToast(false);
+                        }, 3000);
                     } else {
-                        setServerError(result.error ?? 'Error');
+                        setErrorText(result.error ?? 'Subscription error');
+                        setErrorToast(true);
+
+                        setTimeout(() => {
+                            setErrorToast(false);
+                        }, 3000);
                     }
                 }}
             >
@@ -67,13 +75,15 @@ export default function SubscribeForm() {
             </Formik>
 
             <Toast
-                show={showToast}
+                show={successToast}
                 text="Successfully subscribed 🎉"
+                variant="success"
             />
 
             <Toast
-                show={!!serverError}
-                text={serverError ?? ''}
+                show={errorToast}
+                text={errorText}
+                variant="error"
             />
         </>
     );

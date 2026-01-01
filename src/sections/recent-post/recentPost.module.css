@@ -39,8 +39,8 @@
 
 .category {
     padding: 4px 8px;
-    border-radius: 8px;
-    border: 1px solid var(--color-light);
+    border-radius: var(--border-radius-small);
+    border: var(--border-light);
 
     font-family: var(--font-heading);
     font-weight: 600;

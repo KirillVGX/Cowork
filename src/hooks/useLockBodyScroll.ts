@@ -1,10 +1,10 @@
 import { useEffect } from 'react';
 
-export function useLockBodyScroll(isLocked) {
+export function useLockBodyScroll(isLocked: boolean): void {
     useEffect(() => {
         if (!isLocked) return;
 
-        const scrollY = window.scrollY;
+        const scrollY: number = window.scrollY;
 
         document.body.style.position = 'fixed';
         document.body.style.top = `-${scrollY}px`;

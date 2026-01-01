@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import styles from './recommendations.module.css';
 import { articles } from '@/data/articles';
 import Article from '../article/Article';

@@ -1,27 +1,51 @@
 'use client';
 
+import styles from './formActions.module.css';
+import { ChangeEvent } from 'react';
 import { useField } from 'formik';
-import Textarea from '@/components/formActions/textarea';
 
-type Props = {
-    name: string;
+interface TextareaProps {
+    id?: string;
+    name?: string;
     placeholder: string;
-};
+    value?: string;
+    required?: boolean;
+    error?: boolean;
+    onChange?: (e: ChangeEvent<HTMLTextAreaElement>) => void;
+}
 
-export default function FormikTextarea({
+export default function Textarea({
+    placeholder,
+    value,
     name,
-    ...props
-}: Props) {
-    const [field, meta] = useField(name);
+    id,
+    required = false,
+    error,
+    onChange,
+}: TextareaProps) {
+    const isFormik = Boolean(name);
+    const [field, meta] = isFormik ? useField(name!) : [null, null];
+
+    const textareaValue = isFormik ? field!.value : value;
+    const textareaChange = isFormik ? field!.onChange : onChange;
+
+    const hasError =
+        error ?? (isFormik ? meta!.touched && !!meta!.error : false);
+
+    const textareaId = id || name;
 
     return (
-        <Textarea
-            {...props}
-            id={name}
-            name={name}
-            value={field.value}
-            onChange={field.onChange}
-            error={meta.touched && !!meta.error}
+        <textarea
+            className={`${styles.input} ${styles.textarea} ${
+                hasError ? styles.error : ''
+            }`}
+            id={textareaId}
+            name={name || id}
+            placeholder={placeholder}
+            value={textareaValue}
+            onChange={textareaChange}
+            aria-label={placeholder}
+            required={required}
         />
     );
 }
