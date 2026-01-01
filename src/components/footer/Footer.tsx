@@ -1,8 +1,6 @@
 import Image from 'next/image';
 import styles from './footer.module.css';
-import Button from '@/components/button/Button';
 import { tags } from '@/data/tags';
-import Input from '../formActions/input';
 import SubscribeForm from '@/forms/subscribe/subscribe.form';
 
 export default function Footer() {
