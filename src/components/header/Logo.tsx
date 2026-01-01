@@ -4,11 +4,10 @@ import styles from './header.module.css';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useNavigationStore } from '@/store/navigation.store';
-import Toast from '../toast/Toast';
 
 export function Logo() {
     const router = useRouter();
-    const { navigate, redirectToast } = useNavigationStore();
+    const { navigate } = useNavigationStore();
     
     return (
         <>
@@ -26,12 +25,6 @@ export function Logo() {
                     priority
                 />
             </button>
-
-            <Toast
-                show={redirectToast}
-                text="Loading page…"
-                variant="loading"
-            />
         </>
     );
 }

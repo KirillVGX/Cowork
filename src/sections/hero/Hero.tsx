@@ -1,13 +1,17 @@
-'use client'
+'use client';
 
-import Image from 'next/image';
 import styles from './hero.module.css';
+import Image from 'next/image';
 import Button from '@/components/button/Button';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
+import { useNavigationStore } from '@/store/navigation.store';
+import { useRouter } from 'next/navigation';
 
 export default function Hero() {
-    const isTablet = useMediaQuery('(max-width: 768px)');
-    
+    const isMobile = useMediaQuery('(max-width: 768px)');
+    const router = useRouter();
+    const { navigate } = useNavigationStore();
+
     return (
         <section className={styles.heroSection}>
             <div className={styles.infoBlock}>
@@ -21,6 +25,8 @@ export default function Hero() {
                         text="Claim Your Spot"
                         color="red"
                         size="large"
+                        type="button"
+                        onClick={() => navigate(router, '/pricing')}
                     />
                     <h4 className={styles.rocket}>
                         Where innovation meets collaboration 🚀
@@ -28,7 +34,7 @@ export default function Hero() {
                 </div>
             </div>
             <div className={styles.img}>
-                {!isTablet ? (
+                {!isMobile ? (
                     <Image
                         className={styles.backImage}
                         src="/image.svg"
@@ -42,7 +48,6 @@ export default function Hero() {
                         alt="Mens in cafe with laptop"
                         width={360}
                         height={260}
-                        
                     />
                 )}
             </div>

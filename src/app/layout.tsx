@@ -5,6 +5,7 @@ import Header from '@/components/header/Header';
 import Footer from '@/components/footer/Footer';
 import { SessionProvider } from 'next-auth/react';
 import { AppLoader } from '@/hoc/app-loader';
+import Toast from '@/components/toast/Toast';
 
 export default async function RootLayout({
     children,

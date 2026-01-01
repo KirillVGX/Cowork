@@ -3,9 +3,9 @@ import Reveal from '@/hoc/reveal/Reveal';
 
 import { notFound } from 'next/navigation';
 import { articles } from '@/data/articles';
-import Button from '@/components/button/Button';
 import styles from './post.module.css';
 import Loader from '@/components/loader/Loader';
+import ViewAllButton from '@/components/viewAllButton/ViewAllButton';
 
 const Post = lazy(() => import('@/components/post/Post'));
 const Recommendations = lazy(
@@ -30,10 +30,7 @@ export default async function Page({
             <Reveal>
                 <div className={styles.post}>
                     <Recommendations />
-                    <Button
-                        text="View all"
-                        color="blue"
-                    />
+                    <ViewAllButton />
                 </div>
             </Reveal>
         </Suspense>

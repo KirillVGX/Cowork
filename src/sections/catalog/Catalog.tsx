@@ -7,9 +7,10 @@ import Search from '@/components/search/Search';
 import Image from 'next/image';
 import { categories } from '@/data/categories';
 import { articles } from '@/data/articles';
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
 import { chunkArray } from '@/utils/chunkArray';
+import { usePathname } from 'next/navigation';
 
 type Category = (typeof categories)[number];
 
@@ -50,8 +51,20 @@ export default function Catalog({
         [filteredArticles]
     );
 
+    const pathname = usePathname();
+
+    useEffect(() => {
+        const hash = window.location.hash;
+        if (!hash) return;
+
+        const el = document.querySelector(hash);
+        if (!el) return;
+
+        el.scrollIntoView({ behavior: 'smooth' });
+    }, [pathname]);
+
     return (
-        <section className={styles.catalogSection}>
+        <section className={styles.catalogSection} id='catalog'>
             <div className={styles.buttons}>
                 {!isMobile ? (
                     categories.map((category) => (

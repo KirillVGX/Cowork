@@ -1,9 +1,15 @@
+'use client';
+
 import Image from 'next/image';
 import styles from './CTA.module.css';
 import Button from '@/components/button/Button';
-import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useNavigationStore } from '@/store/navigation.store';
 
 export default function CTA() {
+    const router = useRouter();
+    const { navigate } = useNavigationStore();
+
     return (
         <section className={styles.CTAsection}>
             <div className={styles.titleBlock}>
@@ -26,14 +32,14 @@ export default function CTA() {
                 finding a desk; it's discovering a community that fuels your
                 journey to success.
             </p>
-
-            <Link href='/pricing'>
-                <Button
-                    text="Claim Your Spot"
-                    color="red"
-                    size="large"
-                />
-            </Link>
+            
+            <Button
+                text="Claim Your Spot"
+                color="red"
+                size="large"
+                type="button"
+                onClick={() => navigate(router, '/pricing')}
+            />
         </section>
     );
 }

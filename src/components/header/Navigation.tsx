@@ -2,13 +2,12 @@
 
 import styles from './header.module.css';
 import { navItems } from '@/data/nav';
-import Toast from '@/components/toast/Toast';
 import { useRouter } from 'next/navigation';
 import { useNavigationStore } from '@/store/navigation.store';
 
 export function Navigation() {
     const router = useRouter();
-    const { navigate, redirectToast } = useNavigationStore();
+    const { navigate } = useNavigationStore();
 
     return (
         <>
@@ -27,12 +26,6 @@ export function Navigation() {
                     ))}
                 </ul>
             </nav>
-
-            <Toast
-                show={redirectToast}
-                text="Loading page…"
-                variant="loading"
-            />
         </>
     );
 }

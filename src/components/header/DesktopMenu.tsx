@@ -1,6 +1,5 @@
 'use client';
 
-import Link from 'next/link';
 import Button from '../button/Button';
 import styles from './header.module.css';
 import { Navigation } from './Navigation';
@@ -15,7 +14,7 @@ type DesktopMenuProps = {
 
 export function DesktopMenu({ status, name, onSignOut }: DesktopMenuProps) {
     const router = useRouter();
-    const { navigate, redirectToast } = useNavigationStore();
+    const { navigate } = useNavigationStore();
 
     return (
         <div className={styles.actions}>

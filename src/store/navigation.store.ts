@@ -8,10 +8,10 @@ type NavigationStore = {
 
 export const useNavigationStore = create<NavigationStore>((set) => ({
     redirectToast: false,
-
+    
     navigate: (router, href) => {
         set({ redirectToast: true });
-
+        
         setTimeout(() => {
             set({ redirectToast: false });
             router.push(href);

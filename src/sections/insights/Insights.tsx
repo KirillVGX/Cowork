@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import styles from './insights.module.css';
 import Recommendations from '@/components/recommendations/Recommendations';
-import Button from '@/components/button/Button';
+import ViewAllButton from '@/components/viewAllButton/ViewAllButton';
 
 export default function Insights() {
     return (
@@ -28,11 +28,7 @@ export default function Insights() {
 
             <Recommendations />
 
-            <Button
-                text="View All"
-                color="blue"
-                style={{ marginTop: '16px' }}
-            />
+            <ViewAllButton />
         </section>
     );
 }

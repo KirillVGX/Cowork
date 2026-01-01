@@ -1,27 +1,31 @@
 'use client';
 
-import { useSession } from 'next-auth/react';
-import { signOut } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
-
 import styles from './header.module.css';
 import { DesktopMenu } from './DesktopMenu';
 import { Logo } from './Logo';
-import { useMediaQuery } from '@/hooks/useMediaQuery';
 import { MobileMenu } from './MobileMenu';
+import Toast from '../toast/Toast';
+
+import { useSession } from 'next-auth/react';
+import { signOut } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
+import { useNavigationStore } from '@/store/navigation.store';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 import { useState } from 'react';
 
 export default function Header() {
     const { data: session, status } = useSession();
-    const router = useRouter();
-    const isTablet = useMediaQuery('(max-width: 768px)');
+    const isMobile = useMediaQuery('(max-width: 768px)');
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+    const router = useRouter();
+    const { redirectToast } = useNavigationStore();
 
     return (
         <section className={styles.header}>
             <Logo />
 
-            {!isTablet ? (
+            {!isMobile ? (
                 <DesktopMenu
                     status={status}
                     name={session?.user?.name}
@@ -43,6 +47,11 @@ export default function Header() {
                     }}
                 />
             )}
+            <Toast
+                show={redirectToast}
+                text="Loading page…"
+                variant="loading"
+            />
         </section>
     );
 }
